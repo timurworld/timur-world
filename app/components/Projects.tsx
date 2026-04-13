@@ -68,15 +68,33 @@ const projects: Project[] = [
     glow: "#bf5af2",
     featured: false,
   },
-  // Game
+  // Games
   {
     title: "Brainrot Clicker",
     category: "Games" as const,
     image: "",
     emoji: "🧠",
-    description: "My first game! Click your way to brainrot mastery. Play it below!",
+    description: "Tap your way to brainrot mastery. 15 characters, unique worlds, real leaderboard!",
     glow: "#ffe23d",
     featured: true,
+  },
+  {
+    title: "Steal a Brainrot",
+    category: "Games" as const,
+    image: "",
+    emoji: "💀",
+    description: "Collect and steal brainrots from other players. Coming soon!",
+    glow: "#ff2d78",
+    featured: false,
+  },
+  {
+    title: "Brainrot Arena",
+    category: "Games" as const,
+    image: "",
+    emoji: "⚔️",
+    description: "Battle your brainrots against friends in real-time. Coming soon!",
+    glow: "#00d4ff",
+    featured: false,
   },
 ];
 
@@ -204,7 +222,17 @@ export default function Projects() {
                 ) : project.category === "Games" ? (
                   <div className="flex flex-col items-center gap-3">
                     <span className="text-6xl">{project.emoji}</span>
-                    <span className="text-sm font-bold text-neon-yellow/80">Scroll down to play!</span>
+                    {project.featured ? (
+                      <a href="#play" className="px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase"
+                        style={{ background: "linear-gradient(135deg, #ffe23d, #ff9f0a)", color: "#0f0825" }}>
+                        ▶ Play Now
+                      </a>
+                    ) : (
+                      <span className="px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase"
+                        style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.4)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                        Coming Soon
+                      </span>
+                    )}
                   </div>
                 ) : null}
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, #0f0825, transparent 40%)" }} />
