@@ -94,7 +94,7 @@ export default function PlayGame() {
                 }}
               >
                 <iframe
-                  src="http://localhost:5173"
+                  src="https://brainrot-clicker-seven.vercel.app"
                   title="Brainrot Clicker"
                   className="w-full h-full"
                   style={{ background: "#0f0825", border: "none" }}
