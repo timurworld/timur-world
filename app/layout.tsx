@@ -16,8 +16,32 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "Timur World — Kids Design Studio",
-  description:
-    "Backgrounds, character designs, and games by Timur. A creative studio bringing imaginative worlds to life.",
+  description: "Characters, worlds, and games by Timur, age 9. Play Brainrot Clicker, explore original characters, and download free backgrounds!",
+  metadataBase: new URL("https://timur.world"),
+  openGraph: {
+    title: "Timur World — Kids Design Studio",
+    description: "Characters, worlds, and games by Timur, age 9. Play Brainrot Clicker and explore original brainrot characters!",
+    url: "https://timur.world",
+    siteName: "Timur World",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Timur World — Characters, Worlds, Games",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Timur World — Kids Design Studio",
+    description: "Characters, worlds, and games by Timur, age 9. Play Brainrot Clicker!",
+    images: ["/og-image.png"],
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
