@@ -158,8 +158,6 @@ export default function Projects() {
                 ${project.featured ? "sm:col-span-2 lg:col-span-1" : ""}`}
               style={{
                 animation: `fadeInUp 0.5s ease-out ${idx * 0.06}s both`,
-              }}
-              style={{
                 background: "var(--color-surface)",
                 border: `2px solid ${project.glow}22`,
                 boxShadow: `0 4px 30px ${project.glow}15`,
