@@ -1,10 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useReveal } from "../hooks/useReveal";
 
 export default function PlayGame() {
-  const ref = useReveal();
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
@@ -14,11 +12,10 @@ export default function PlayGame() {
         <div className="absolute bottom-[5%] right-[5%] w-[40%] h-[50%] rounded-full bg-neon-pink/[0.05] blur-[140px]" />
       </div>
       <div className="absolute inset-0 grain" />
-      <div className="absolute top-0 left-[5%] right-[5%] h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(255,226,61,0.15), rgba(255,45,120,0.15), transparent)" }} />
 
-      <div ref={ref} className="relative z-10 max-w-5xl mx-auto px-6">
+      <div className="relative z-10 max-w-5xl mx-auto px-6">
         {/* Header */}
-        <div className="reveal text-center mb-10">
+        <div className="text-center mb-10">
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-6"
             style={{ background: "rgba(255,226,61,0.1)", border: "1px solid rgba(255,226,61,0.2)" }}
           >
@@ -38,9 +35,8 @@ export default function PlayGame() {
         {/* Game container */}
         <div>
           {!isPlaying ? (
-            /* Play button overlay */
-            <div
-              className="relative rounded-3xl overflow-hidden aspect-video flex items-center justify-center cursor-pointer group"
+            <button
+              className="relative rounded-3xl overflow-hidden aspect-video flex items-center justify-center cursor-pointer group w-full border-none"
               style={{
                 background: "var(--color-surface)",
                 border: "2px solid rgba(255,226,61,0.2)",
@@ -48,9 +44,7 @@ export default function PlayGame() {
               }}
               onClick={() => setIsPlaying(true)}
             >
-
-              {/* Play button */}
-              <div className="relative z-10 flex flex-col items-center gap-4">
+              <div className="flex flex-col items-center gap-4">
                 <div
                   className="w-24 h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center
                     transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]
@@ -68,9 +62,8 @@ export default function PlayGame() {
                   Click to Play!
                 </span>
               </div>
-            </div>
+            </button>
           ) : (
-            /* Game iframe */
             <div className="relative">
               <div
                 className="relative rounded-3xl overflow-hidden"
