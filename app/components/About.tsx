@@ -43,7 +43,7 @@ export default function About() {
                 to spark wonder and joy.
               </p>
               <p>
-                Creating is my passion — whether it&apos;s game backgrounds,
+                Creating is my passion — whether it&apos;s backgrounds,
                 character designs, or interactive games. I love sharing what I
                 make with other kids and bringing ideas to life with bold colors
                 and playful energy.
