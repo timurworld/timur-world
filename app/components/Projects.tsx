@@ -58,16 +58,15 @@ const projects: Project[] = [
     rarity: ch.rarity,
     mult: ch.mult,
   })),
-  // Backgrounds - Coming Soon
-  {
-    title: "World Backgrounds",
-    category: "Backgrounds" as const,
-    image: "",
-    emoji: "🎨",
-    description: "19 immersive worlds — one for each character. Coming soon!",
-    glow: "#bf5af2",
-    featured: false,
-  },
+  // Backgrounds
+  { title: "Candy Dreamland", category: "Backgrounds" as const, image: "/worlds/bg_01.png", emoji: "🍭", description: "Noobini Lovini's sweet world of lollipops and cotton candy hills.", glow: "#ff69b4", featured: false },
+  { title: "Castle at Dusk", category: "Backgrounds" as const, image: "/worlds/bg_02.png", emoji: "🏰", description: "Romantini Grandini's medieval kingdom under a crimson sky.", glow: "#e74c3c", featured: false },
+  { title: "Heart Cloud Kingdom", category: "Backgrounds" as const, image: "/worlds/bg_03.png", emoji: "💕", description: "Lovini Lovini Lovini's pink paradise of hearts and rainbows.", glow: "#ff1493", featured: false },
+  { title: "Toy Workshop", category: "Backgrounds" as const, image: "/worlds/bg_04.png", emoji: "🧸", description: "Teddini & Robotini's cozy workshop full of toys and gears.", glow: "#c8894f", featured: false },
+  { title: "Fireworks Night", category: "Backgrounds" as const, image: "/worlds/bg_05.png", emoji: "🎆", description: "Noobini Partini's celebration under a sky of fireworks.", glow: "#ff6347", featured: false },
+  { title: "Bakery Kitchen", category: "Backgrounds" as const, image: "/worlds/bg_06.png", emoji: "🧁", description: "Cakini Presintini's magical kitchen of cakes and treats.", glow: "#ff8c00", featured: false },
+  { title: "Rose Garden", category: "Backgrounds" as const, image: "/worlds/bg_07.png", emoji: "🌹", description: "Lovini Rosetti's beautiful garden bursting with roses.", glow: "#db7093", featured: false },
+  { title: "More Worlds Coming!", category: "Backgrounds" as const, image: "", emoji: "🎨", description: "12 more worlds in progress — stay tuned!", glow: "#bf5af2", featured: false },
   // Games
   {
     title: "Brainrot Clicker",
@@ -210,6 +209,12 @@ export default function Projects() {
                     className="max-w-[70%] max-h-[85%] object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
                     style={{ filter: `drop-shadow(0 0 15px ${project.glow}66)` }}
                   />
+                ) : project.category === "Backgrounds" && project.image ? (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
+                  />
                 ) : project.category === "Backgrounds" ? (
                   <div className="flex flex-col items-center gap-3">
                     <span className="text-5xl">{project.emoji}</span>
@@ -257,11 +262,32 @@ export default function Projects() {
               </div>
 
               {/* Info */}
-              <div className="p-5 pt-2">
-                <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-white group-hover:text-neon-blue transition-colors duration-300 mb-1">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-white/35">{project.description}</p>
+              <div className="p-5 pt-2 flex items-end justify-between gap-3">
+                <div>
+                  <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-white group-hover:text-neon-blue transition-colors duration-300 mb-1">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-white/35">{project.description}</p>
+                </div>
+                {project.category === "Backgrounds" && project.image && (
+                  <a
+                    href={project.image}
+                    download
+                    className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold
+                      transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]
+                      hover:scale-110 active:scale-90"
+                    style={{
+                      background: `${project.glow}20`,
+                      color: project.glow,
+                      border: `1px solid ${project.glow}30`,
+                    }}
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    Save
+                  </a>
+                )}
               </div>
 
               {/* Bottom glow line on hover */}
