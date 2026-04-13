@@ -37,10 +37,10 @@ export default function About() {
 
             <div className="reveal space-y-5 text-white/50 text-lg leading-[1.8]">
               <p>
-                Hi, I&apos;m Timur! I run a small design studio dedicated to making
-                vibrant, imaginative visuals for kids. From lush game backgrounds
-                to quirky character designs, every piece is crafted to spark
-                wonder and joy.
+                Hi, I&apos;m Timur and I&apos;m 9 years old. I run a small design studio
+                dedicated to making fun, imaginative visuals for kids. From unique
+                game backgrounds to quirky character designs, every piece is crafted
+                to spark wonder and joy.
               </p>
               <p>
                 Creating is my passion — whether it&apos;s game backgrounds,
