@@ -206,6 +206,7 @@ export default function Projects() {
                   <img
                     src={project.image}
                     alt={project.title}
+                    loading="lazy"
                     className="max-w-[70%] max-h-[85%] object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
                     style={{ filter: `drop-shadow(0 0 15px ${project.glow}66)` }}
                   />
@@ -213,6 +214,7 @@ export default function Projects() {
                   <img
                     src={project.image}
                     alt={project.title}
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
                   />
                 ) : project.category === "Backgrounds" ? (

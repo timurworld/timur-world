@@ -36,7 +36,7 @@ export default function PlayGame() {
         </div>
 
         {/* Game container */}
-        <div className="reveal">
+        <div>
           {!isPlaying ? (
             /* Play button overlay */
             <div
@@ -48,18 +48,6 @@ export default function PlayGame() {
               }}
               onClick={() => setIsPlaying(true)}
             >
-              {/* Character preview grid as background */}
-              <div className="absolute inset-0 grid grid-cols-5 grid-rows-3 gap-2 p-6 opacity-20 group-hover:opacity-30 transition-opacity duration-500">
-                {["01_noobini_lovini","02_la_romantic_grande","03_lovini_lovini_lovini","04_teddy_and_rosie","05_noobini_partini",
-                  "06_cakini_and_presintini","07_lovin_rose","08_heartini_smilekur","09_dragon_partyini","10_cupid_cupid_sahur",
-                  "11_rositti_tueletti","12_birthdayini_cardini","15_noobini_partyini","18_noo_my_heart","19_cupid_hotspot"
-                ].map((f) => (
-                  <div key={f} className="flex items-center justify-center">
-                    <img src={`/characters/${f}.png`} alt="" className="max-h-full max-w-full object-contain" />
-                  </div>
-                ))}
-              </div>
-              <div className="absolute inset-0" style={{ background: "radial-gradient(circle at center, transparent 0%, #0f0825 80%)" }} />
 
               {/* Play button */}
               <div className="relative z-10 flex flex-col items-center gap-4">
