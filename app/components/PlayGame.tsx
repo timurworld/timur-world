@@ -35,14 +35,21 @@ export default function PlayGame() {
         {/* Game container */}
         <div>
           {!isPlaying ? (
-            <button
-              className="relative rounded-3xl overflow-hidden aspect-video flex items-center justify-center cursor-pointer group w-full border-none"
+            <div
+              role="button"
+              tabIndex={0}
+              className="relative rounded-3xl overflow-hidden flex items-center justify-center cursor-pointer group w-full"
               style={{
                 background: "var(--color-surface)",
                 border: "2px solid rgba(255,226,61,0.2)",
                 boxShadow: "0 0 60px rgba(255,226,61,0.08), 0 0 120px rgba(255,45,120,0.05)",
+                minHeight: "250px",
+                padding: "60px 20px",
+                WebkitTapHighlightColor: "transparent",
+                touchAction: "manipulation",
               }}
               onClick={() => setIsPlaying(true)}
+              onTouchEnd={(e) => { e.preventDefault(); setIsPlaying(true); }}
             >
               <div className="flex flex-col items-center gap-4">
                 <div
@@ -62,7 +69,7 @@ export default function PlayGame() {
                   Click to Play!
                 </span>
               </div>
-            </button>
+            </div>
           ) : (
             <div className="relative">
               <div
