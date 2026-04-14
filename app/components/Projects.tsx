@@ -58,15 +58,26 @@ const projects: Project[] = [
     rarity: ch.rarity,
     mult: ch.mult,
   })),
-  // Backgrounds
-  { title: "Candy Dreamland", category: "Backgrounds" as const, image: "/worlds/bg_01.png", emoji: "🍭", description: "Noobini Lovini's sweet world of lollipops and cotton candy hills.", glow: "#ff69b4", featured: false },
-  { title: "Castle at Dusk", category: "Backgrounds" as const, image: "/worlds/bg_02.png", emoji: "🏰", description: "Romantini Grandini's medieval kingdom under a crimson sky.", glow: "#e74c3c", featured: false },
+  // Backgrounds — all 19 worlds
+  { title: "Candy Dreamland", category: "Backgrounds" as const, image: "/worlds/bg_01.png", emoji: "🍭", description: "Noobini Lovini's sweet world of lollipops and cotton candy.", glow: "#ff69b4", featured: false },
+  { title: "Castle at Dusk", category: "Backgrounds" as const, image: "/worlds/bg_02.png", emoji: "🏰", description: "Romantini Grandini's medieval kingdom under crimson sky.", glow: "#e74c3c", featured: false },
   { title: "Heart Cloud Kingdom", category: "Backgrounds" as const, image: "/worlds/bg_03.png", emoji: "💕", description: "Lovini Lovini Lovini's pink paradise of hearts and rainbows.", glow: "#ff1493", featured: false },
   { title: "Toy Workshop", category: "Backgrounds" as const, image: "/worlds/bg_04.png", emoji: "🧸", description: "Teddini & Robotini's cozy workshop full of toys and gears.", glow: "#c8894f", featured: false },
   { title: "Fireworks Night", category: "Backgrounds" as const, image: "/worlds/bg_05.png", emoji: "🎆", description: "Noobini Partini's celebration under a sky of fireworks.", glow: "#ff6347", featured: false },
   { title: "Bakery Kitchen", category: "Backgrounds" as const, image: "/worlds/bg_06.png", emoji: "🧁", description: "Cakini Presintini's magical kitchen of cakes and treats.", glow: "#ff8c00", featured: false },
   { title: "Rose Garden", category: "Backgrounds" as const, image: "/worlds/bg_07.png", emoji: "🌹", description: "Lovini Rosetti's beautiful garden bursting with roses.", glow: "#db7093", featured: false },
-  { title: "More Worlds Coming!", category: "Backgrounds" as const, image: "", emoji: "🎨", description: "12 more worlds in progress — stay tuned!", glow: "#bf5af2", featured: false },
+  { title: "Cloud Kingdom", category: "Backgrounds" as const, image: "/worlds/bg_08.png", emoji: "☁️", description: "Heartini Sorrissoni's dreamy floating clouds and rainbows.", glow: "#40c4c4", featured: false },
+  { title: "Dark Battle Arena", category: "Backgrounds" as const, image: "/worlds/bg_09.png", emoji: "⚔️", description: "Transformini Firini's epic arena with fire pillars.", glow: "#e63900", featured: false },
+  { title: "Celestial Temple", category: "Backgrounds" as const, image: "/worlds/bg_10.png", emoji: "🌙", description: "Cupidini Sahuroni's floating temple under the moon.", glow: "#ff1493", featured: false },
+  { title: "Enchanted Forest", category: "Backgrounds" as const, image: "/worlds/bg_11.png", emoji: "🍄", description: "Rositti Tueletti's magical forest with glowing mushrooms.", glow: "#ba55d3", featured: false },
+  { title: "Birthday Party", category: "Backgrounds" as const, image: "/worlds/bg_12.png", emoji: "🎈", description: "Birthdayini Cardini's golden celebration room.", glow: "#ffd700", featured: false },
+  { title: "Circus Tent", category: "Backgrounds" as const, image: "/worlds/bg_13.png", emoji: "🎪", description: "Cakini Elephantini's magical circus with spotlights.", glow: "#9b8ec4", featured: false },
+  { title: "Inventor Lab", category: "Backgrounds" as const, image: "/worlds/bg_14.png", emoji: "💡", description: "Yessini Innovarini's futuristic workshop with holograms.", glow: "#3498db", featured: false },
+  { title: "Jungle Party", category: "Backgrounds" as const, image: "/worlds/bg_15.png", emoji: "🌴", description: "Noobini Partyini's tropical jungle celebration.", glow: "#2ecc71", featured: false },
+  { title: "Ocean Sunset", category: "Backgrounds" as const, image: "/worlds/bg_16.png", emoji: "🌅", description: "Lovini Lovini Sahur's peaceful ocean at golden hour.", glow: "#5dade2", featured: false },
+  { title: "Crimson Arena", category: "Backgrounds" as const, image: "/worlds/bg_17.png", emoji: "🔥", description: "Chiclitera Cupidini's fiery battlefield.", glow: "#dc143c", featured: false },
+  { title: "Rainy Night", category: "Backgrounds" as const, image: "/worlds/bg_18.png", emoji: "🌧️", description: "Noo Mio Heartini's moody midnight rain.", glow: "#8b0000", featured: false },
+  { title: "Volcano Throne", category: "Backgrounds" as const, image: "/worlds/bg_19.png", emoji: "🌋", description: "Cupidini Hotspottini's epic lava kingdom.", glow: "#ff4500", featured: false },
   // Games
   {
     title: "Brainrot Clicker",
@@ -97,11 +108,22 @@ const projects: Project[] = [
   },
 ];
 
+const ITEMS_PER_PAGE = 9;
+
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState<(typeof categories)[number]>("Characters");
+  const [page, setPage] = useState(0);
   const ref = useReveal();
 
-  const filtered = projects.filter((p) => p.category === activeFilter);
+  const allFiltered = projects.filter((p) => p.category === activeFilter);
+  const totalPages = Math.ceil(allFiltered.length / ITEMS_PER_PAGE);
+  const filtered = allFiltered.slice(page * ITEMS_PER_PAGE, (page + 1) * ITEMS_PER_PAGE);
+
+  // Reset page when switching tabs
+  const handleFilterChange = (cat: typeof activeFilter) => {
+    setActiveFilter(cat);
+    setPage(0);
+  };
 
   return (
     <section id="projects" className="relative py-24 md:py-36 overflow-hidden">
@@ -142,7 +164,7 @@ export default function Projects() {
             return (
               <button
                 key={cat}
-                onClick={() => setActiveFilter(cat)}
+                onClick={() => handleFilterChange(cat)}
                 className={`px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide
                   transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]
                   hover:scale-110 active:scale-90 hover-wiggle
@@ -300,6 +322,44 @@ export default function Projects() {
             </div>
           ))}
         </div>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-3 mt-10">
+            <button
+              onClick={() => setPage(Math.max(0, page - 1))}
+              disabled={page === 0}
+              className="px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 hover:scale-105 disabled:opacity-30 disabled:hover:scale-100"
+              style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "#fff" }}
+            >
+              ← Prev
+            </button>
+            <div className="flex gap-1.5">
+              {Array.from({ length: totalPages }).map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setPage(i)}
+                  className="w-9 h-9 rounded-lg text-sm font-bold transition-all duration-300 hover:scale-110"
+                  style={{
+                    background: page === i ? "linear-gradient(135deg, #00d4ff, #bf5af2)" : "rgba(255,255,255,0.06)",
+                    border: page === i ? "none" : "1px solid rgba(255,255,255,0.1)",
+                    color: "#fff",
+                  }}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => setPage(Math.min(totalPages - 1, page + 1))}
+              disabled={page === totalPages - 1}
+              className="px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 hover:scale-105 disabled:opacity-30 disabled:hover:scale-100"
+              style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "#fff" }}
+            >
+              Next →
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
