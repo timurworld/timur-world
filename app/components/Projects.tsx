@@ -252,7 +252,8 @@ export default function Projects() {
                   <div className="flex flex-col items-center gap-3">
                     <span className="text-6xl">{project.emoji}</span>
                     {project.featured ? (
-                      <a href="#play" className="px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase"
+                      <a href="https://game.timur.world" target="_blank" rel="noopener noreferrer"
+                        className="px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase"
                         style={{ background: "linear-gradient(135deg, #ffe23d, #ff9f0a)", color: "#0f0825" }}>
                         ▶ Play Now
                       </a>
