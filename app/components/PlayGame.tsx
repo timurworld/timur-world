@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
+const GAME_URL = "https://game.timur.world";
 
 export default function PlayGame() {
-  const [isPlaying, setIsPlaying] = useState(false);
-
   return (
     <section id="play" className="relative py-24 md:py-36 overflow-hidden">
       <div className="absolute inset-0">
@@ -27,79 +25,55 @@ export default function PlayGame() {
             <span className="gradient-text">Brainrot Clicker</span>
           </h2>
           <p className="text-white/40 text-lg max-w-2xl mx-auto leading-relaxed">
-            My first game — playable right here! Tap your way to brainrot
-            mastery. Unlock 15 characters, each with their own world! 💀🔥
+            My first game — tap your way to brainrot mastery. Unlock 15
+            characters, each with their own world! 💀🔥
           </p>
         </div>
 
-        {/* Game container */}
-        <div>
-          {!isPlaying ? (
-            <div
-              role="button"
-              tabIndex={0}
-              className="relative rounded-3xl overflow-hidden flex items-center justify-center cursor-pointer group w-full"
-              style={{
-                background: "var(--color-surface)",
-                border: "2px solid rgba(255,226,61,0.2)",
-                boxShadow: "0 0 60px rgba(255,226,61,0.08), 0 0 120px rgba(255,45,120,0.05)",
-                minHeight: "250px",
-                padding: "60px 20px",
-                WebkitTapHighlightColor: "transparent",
-                touchAction: "manipulation",
-              }}
-              onClick={() => setIsPlaying(true)}
-              onTouchEnd={(e) => { e.preventDefault(); setIsPlaying(true); }}
-            >
-              <div className="flex flex-col items-center gap-4">
-                <div
-                  className="w-24 h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center
-                    transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]
-                    group-hover:scale-110 animate-scale-pulse"
-                  style={{
-                    background: "linear-gradient(135deg, #ffe23d, #ff9f0a)",
-                    boxShadow: "0 0 40px rgba(255,226,61,0.4), 0 0 80px rgba(255,226,61,0.2)",
-                  }}
-                >
-                  <svg className="w-12 h-12 md:w-16 md:h-16 text-[#0f0825] ml-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-                <span className="font-[family-name:var(--font-display)] text-xl md:text-2xl font-bold text-neon-yellow tracking-wider uppercase">
-                  Click to Play!
-                </span>
-              </div>
-            </div>
-          ) : (
-            <div className="relative">
+        {/* Play button — opens game.timur.world in a new tab so it has the full
+            screen instead of being trapped in an iframe on this page. */}
+        <div className="flex justify-center">
+          <a
+            href={GAME_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative rounded-3xl overflow-hidden flex items-center justify-center cursor-pointer group w-full max-w-2xl"
+            style={{
+              background: "var(--color-surface)",
+              border: "2px solid rgba(255,226,61,0.2)",
+              boxShadow: "0 0 60px rgba(255,226,61,0.08), 0 0 120px rgba(255,45,120,0.05)",
+              minHeight: "260px",
+              padding: "60px 20px",
+              WebkitTapHighlightColor: "transparent",
+              touchAction: "manipulation",
+              textDecoration: "none",
+            }}
+          >
+            <div className="flex flex-col items-center gap-4">
               <div
-                className="relative rounded-3xl overflow-hidden"
+                className="w-24 h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center
+                  transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]
+                  group-hover:scale-110 animate-scale-pulse"
                 style={{
-                  height: "80vh",
-                  maxHeight: "900px",
-                  border: "2px solid rgba(255,226,61,0.3)",
-                  boxShadow: "0 0 60px rgba(255,226,61,0.1), 0 0 120px rgba(255,45,120,0.06)",
+                  background: "linear-gradient(135deg, #ffe23d, #ff9f0a)",
+                  boxShadow: "0 0 40px rgba(255,226,61,0.4), 0 0 80px rgba(255,226,61,0.2)",
                 }}
               >
-                <iframe
-                  src="https://brainrot-clicker-seven.vercel.app"
-                  title="Brainrot Clicker"
-                  className="w-full h-full"
-                  style={{ background: "#0f0825", border: "none" }}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
-                />
+                <svg className="w-12 h-12 md:w-16 md:h-16 text-[#0f0825] ml-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
               </div>
-              <div className="text-center mt-4">
-                <button
-                  onClick={() => setIsPlaying(false)}
-                  className="px-6 py-3 rounded-xl text-sm font-bold text-white/60 hover:text-white transition-all duration-300 hover:scale-105"
-                  style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
-                >
-                  ← Close Game
-                </button>
-              </div>
+              <span className="font-[family-name:var(--font-display)] text-xl md:text-2xl font-bold text-neon-yellow tracking-wider uppercase">
+                Play Brainrot Clicker
+              </span>
+              <span className="inline-flex items-center gap-1.5 text-xs text-white/40 tracking-wider uppercase font-bold">
+                game.timur.world
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </span>
             </div>
-          )}
+          </a>
         </div>
       </div>
     </section>
