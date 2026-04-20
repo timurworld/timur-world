@@ -14,12 +14,13 @@ export default function PlayGame() {
       <div className="relative z-10 max-w-5xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-10">
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-6"
+          <a href={GAME_URL} target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-6 transition-all hover:scale-105 hover:border-neon-yellow/50 cursor-pointer no-underline"
             style={{ background: "rgba(255,226,61,0.1)", border: "1px solid rgba(255,226,61,0.2)" }}
           >
             <span className="text-lg">🕹️</span>
-            <span className="text-neon-yellow">Play Now</span>
-          </span>
+            <span className="text-neon-yellow">My Games</span>
+          </a>
 
           <h2 className="font-[family-name:var(--font-display)] text-4xl sm:text-5xl md:text-7xl font-bold tracking-[-0.03em] leading-[1.05] mb-4">
             <span className="gradient-text">Brainrot Clicker</span>
