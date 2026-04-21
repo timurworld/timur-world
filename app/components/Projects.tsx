@@ -3,25 +3,43 @@
 import { useState } from "react";
 import { useReveal } from "../hooks/useReveal";
 
-const categories = ["Characters", "Games", "Backgrounds"] as const;
+const categories = ["Characters", "Backgrounds"] as const;
+
+// Character classes — thematic families grouping characters by vibe
+const CHARACTER_CLASSES = ["All", "Lovini", "Partini", "Robotini", "Sportini"] as const;
+type CharacterClass = typeof CHARACTER_CLASSES[number];
+
+const classMeta: Record<Exclude<CharacterClass, "All">, { emoji: string; desc: string; color: string }> = {
+  Lovini:   { emoji: "💖", desc: "Emotion characters",  color: "#ff1493" },
+  Partini:  { emoji: "🎉", desc: "Chaos characters",     color: "#ffd700" },
+  Robotini: { emoji: "🤖", desc: "Tech characters",      color: "#00d4ff" },
+  Sportini: { emoji: "🏆", desc: "Sports characters",    color: "#30d158" },
+};
 
 const characters = [
-  { name: "Noobini Lovini", file: "01_noobini_lovini.png", rarity: "Common", mult: "1x", color: "#ff69b4" },
-  { name: "Romantini Grandini", file: "02_la_romantic_grande.png", rarity: "Limited", mult: "1.5x", color: "#e74c3c" },
-  { name: "Lovini Lovini Lovini", file: "03_lovini_lovini_lovini.png", rarity: "Brainrot God", mult: "2x", color: "#ff1493" },
-  { name: "Teddini & Robotini", file: "04_teddy_and_rosie.png", rarity: "Legendary", mult: "2.5x", color: "#c8894f" },
-  { name: "Noobini Partini", file: "05_noobini_partini.png", rarity: "Brainrot God", mult: "3x", color: "#ff6347" },
-  { name: "Cakini Presintini", file: "06_cakini_and_presintini.png", rarity: "Secret", mult: "3.5x", color: "#ff8c00" },
-  { name: "Lovini Rosetti", file: "07_lovin_rose.png", rarity: "Rare", mult: "4x", color: "#4db8db" },
-  { name: "Heartini Smilekurro", file: "08_heartini_smilekur.png", rarity: "Common", mult: "4.5x", color: "#40c4c4" },
-  { name: "Dragini Partini", file: "09_dragon_partyini.png", rarity: "OG", mult: "5x", color: "#ffd700" },
-  { name: "Cupidini Sahuroni", file: "10_cupid_cupid_sahur.png", rarity: "Legendary", mult: "5.5x", color: "#ff1493" },
-  { name: "Rositti Tueletti", file: "11_rositti_tueletti.png", rarity: "Rare", mult: "6x", color: "#ba55d3" },
-  { name: "Birthdayini Cardini", file: "12_birthdayini_cardini.png", rarity: "Brainrot God", mult: "6.5x", color: "#ffd700" },
-  { name: "Noobini Partyini", file: "15_noobini_partyini.png", rarity: "Brainrot God", mult: "7x", color: "#2ecc71" },
-  { name: "Noo Mio Heartini", file: "18_noo_my_heart.png", rarity: "Rare", mult: "8x", color: "#8b0000" },
-  { name: "Cupidini Hotspottini", file: "19_cupid_hotspot.png", rarity: "Legendary", mult: "9x", color: "#ff4500" },
+  { name: "Noobini Lovini",     file: "01_noobini_lovini.png",         rarity: "Common",       mult: "1x",   color: "#ff69b4", class: "Lovini" },
+  { name: "Romantini Grandini", file: "02_la_romantic_grande.png",     rarity: "Common",       mult: "1.5x", color: "#e74c3c", class: "Lovini" },
+  { name: "Lovini Lovini Lovini", file: "03_lovini_lovini_lovini.png", rarity: "Brainrot God", mult: "2x",   color: "#ff1493", class: "Lovini" },
+  { name: "Teddini & Robotini", file: "04_teddy_and_rosie.png",        rarity: "Legendary",    mult: "2.5x", color: "#c8894f", class: "Robotini" },
+  { name: "Noobini Partini",    file: "05_noobini_partini.png",        rarity: "Brainrot God", mult: "3x",   color: "#ff6347", class: "Partini" },
+  { name: "Cakini Presintini",  file: "06_cakini_and_presintini.png",  rarity: "Secret",       mult: "3.5x", color: "#ff8c00", class: "Partini" },
+  { name: "Lovini Rosetti",     file: "07_lovin_rose.png",             rarity: "Rare",         mult: "4x",   color: "#4db8db", class: "Lovini" },
+  { name: "Heartini Smilekurro", file: "08_heartini_smilekur.png",     rarity: "Common",       mult: "4.5x", color: "#40c4c4", class: "Lovini" },
+  { name: "Dragini Partini",    file: "09_dragon_partyini.png",        rarity: "OG",           mult: "5x",   color: "#ffd700", class: "Partini" },
+  { name: "Cupidini Sahuroni",  file: "10_cupid_cupid_sahur.png",      rarity: "Legendary",    mult: "5.5x", color: "#ff1493", class: "Lovini" },
+  { name: "Rositti Tueletti",   file: "11_rositti_tueletti.png",       rarity: "Rare",         mult: "6x",   color: "#ba55d3", class: "Lovini" },
+  { name: "Birthdayini Cardini", file: "12_birthdayini_cardini.png",   rarity: "Brainrot God", mult: "6.5x", color: "#ffd700", class: "Partini" },
+  { name: "Pizzini Partyini",   file: "15_noobini_partyini.png",       rarity: "Brainrot God", mult: "7x",   color: "#2ecc71", class: "Partini" },
+  { name: "Noo Mio Heartini",   file: "18_noo_my_heart.png",           rarity: "Rare",         mult: "8x",   color: "#8b0000", class: "Lovini" },
+  { name: "Cupidini Hotspottini", file: "19_cupid_hotspot.png",        rarity: "Legendary",    mult: "9x",   color: "#ff4500", class: "Lovini" },
+  { name: "Stick Stick",        file: "20_stick_stick.png",            rarity: "Secret",       mult: "9.5x", color: "#00d4ff", class: "Sportini" },
+  { name: "No My Pucks",        file: "21_no_my_pucks.png",            rarity: "Secret",       mult: "12x",  color: "#30d158", class: "Sportini" },
+  { name: "Hockey Bros",        file: "22_hockey_bros.png",            rarity: "Limited",      mult: "22x",  color: "#ffe23d", class: "Sportini" },
 ];
+// Order intentional: Limited sits near the top (between Secret and OG) as
+// the "collector's edition" rarity.
+const RARITY_ORDER = ["All", "Common", "Rare", "Legendary", "Brainrot God", "Secret", "Limited", "OG"] as const;
+type Rarity = typeof RARITY_ORDER[number];
 
 const rarityColors: Record<string, string> = {
   Common: "#aaa",
@@ -35,7 +53,7 @@ const rarityColors: Record<string, string> = {
 
 type Project = {
   title: string;
-  category: "Characters" | "Backgrounds" | "Games";
+  category: "Characters" | "Backgrounds";
   image: string;
   emoji: string;
   description: string;
@@ -43,6 +61,7 @@ type Project = {
   featured: boolean;
   rarity?: string;
   mult?: string;
+  charClass?: Exclude<CharacterClass, "All">;
 };
 
 const projects: Project[] = [
@@ -52,11 +71,12 @@ const projects: Project[] = [
     category: "Characters" as const,
     image: `/characters/${ch.file}`,
     emoji: "",
-    description: `${ch.rarity} | ${ch.mult} multiplier`,
+    description: `${ch.class} · ${ch.rarity} · ${ch.mult}`,
     glow: ch.color,
     featured: false,
     rarity: ch.rarity,
     mult: ch.mult,
+    charClass: ch.class as Exclude<CharacterClass, "All">,
   })),
   // Backgrounds — all 19 worlds
   { title: "Candy Dreamland", category: "Backgrounds" as const, image: "/worlds/bg_01.png", emoji: "🍭", description: "Noobini Lovini's sweet world of lollipops and cotton candy.", glow: "#ff69b4", featured: false },
@@ -78,52 +98,41 @@ const projects: Project[] = [
   { title: "Crimson Arena", category: "Backgrounds" as const, image: "/worlds/bg_17.png", emoji: "🔥", description: "Chiclitera Cupidini's fiery battlefield.", glow: "#dc143c", featured: false },
   { title: "Rainy Night", category: "Backgrounds" as const, image: "/worlds/bg_18.png", emoji: "🌧️", description: "Noo Mio Heartini's moody midnight rain.", glow: "#8b0000", featured: false },
   { title: "Volcano Throne", category: "Backgrounds" as const, image: "/worlds/bg_19.png", emoji: "🌋", description: "Cupidini Hotspottini's epic lava kingdom.", glow: "#ff4500", featured: false },
-  // Games
-  {
-    title: "Brainrot Clicker",
-    category: "Games" as const,
-    image: "",
-    emoji: "🧠",
-    description: "Tap your way to brainrot mastery. 15 characters, unique worlds, real leaderboard!",
-    glow: "#ffe23d",
-    featured: true,
-  },
-  {
-    title: "??? Mystery Game",
-    category: "Games" as const,
-    image: "",
-    emoji: "🔮",
-    description: "Something big is cooking... Stay tuned!",
-    glow: "#ff2d78",
-    featured: false,
-  },
-  {
-    title: "??? Secret Project",
-    category: "Games" as const,
-    image: "",
-    emoji: "🚀",
-    description: "You're not ready for this one. Coming soon!",
-    glow: "#00d4ff",
-    featured: false,
-  },
 ];
 
 const ITEMS_PER_PAGE = 9;
 
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState<(typeof categories)[number]>("Characters");
+  const [activeClass, setActiveClass] = useState<CharacterClass>("All");
+  const [activeRarity, setActiveRarity] = useState<Rarity>("All");
   const [page, setPage] = useState(0);
   const ref = useReveal();
 
-  const allFiltered = projects.filter((p) => p.category === activeFilter);
+  const allFiltered = projects.filter((p) => {
+    if (p.category !== activeFilter) return false;
+    if (activeFilter === "Characters") {
+      if (activeClass !== "All" && p.charClass !== activeClass) return false;
+      if (activeRarity !== "All" && p.rarity !== activeRarity) return false;
+    }
+    return true;
+  });
   const totalPages = Math.ceil(allFiltered.length / ITEMS_PER_PAGE);
   const filtered = allFiltered.slice(page * ITEMS_PER_PAGE, (page + 1) * ITEMS_PER_PAGE);
 
-  // Reset page when switching tabs
+  // Count of characters per class so we can show counts in pills
+  const classCounts: Record<string, number> = { All: characters.length };
+  for (const ch of characters) classCounts[ch.class] = (classCounts[ch.class] || 0) + 1;
+
+  // Reset filters when switching primary tab
   const handleFilterChange = (cat: typeof activeFilter) => {
     setActiveFilter(cat);
+    setActiveClass("All");
+    setActiveRarity("All");
     setPage(0);
   };
+  const handleClassChange = (c: CharacterClass) => { setActiveClass(c); setPage(0); };
+  const handleRarityChange = (r: Rarity) => { setActiveRarity(r); setPage(0); };
 
   return (
     <section id="projects" className="relative py-24 md:py-36 overflow-hidden">
@@ -145,46 +154,83 @@ export default function Projects() {
           </span>
         </div>
 
-        <h2 className="reveal font-[family-name:var(--font-display)] text-4xl sm:text-5xl md:text-6xl font-bold tracking-[-0.03em] leading-[1.05] mb-4">
+        <h2 className="reveal font-[family-name:var(--font-display)] text-4xl sm:text-5xl md:text-6xl font-bold tracking-[-0.03em] leading-[1.05] mb-12">
           My <span className="gradient-text">creations</span>
         </h2>
-        <p className="reveal text-white/40 text-lg max-w-xl mb-12 leading-relaxed">
-          Characters, backgrounds, and games — all original brainrot art
-          created by Timur! 🎁
-        </p>
 
-        {/* Filter */}
-        <div className="reveal flex flex-wrap gap-2 mb-12">
-          {categories.map((cat) => {
-            const catEmojis: Record<string, string> = {
-              Games: "🎮",
-              Characters: "👾",
-              Backgrounds: "🌄",
-            };
-            return (
-              <button
-                key={cat}
-                onClick={() => handleFilterChange(cat)}
-                className={`px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide
-                  transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]
-                  hover:scale-110 active:scale-90 hover-wiggle
-                  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neon-blue
-                  ${
-                    activeFilter === cat
-                      ? "text-white shadow-[0_0_20px_rgba(0,212,255,0.3)]"
-                      : "text-white/50 hover:text-white"
-                  }`}
-                style={
+        {/* Primary filter: Characters / Backgrounds */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => handleFilterChange(cat)}
+              className={`px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide
+                transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]
+                hover:scale-110 active:scale-90 hover-wiggle
+                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neon-blue
+                ${
                   activeFilter === cat
-                    ? { background: "linear-gradient(135deg, #00d4ff, #bf5af2)", border: "none" }
-                    : { background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }
-                }
-              >
-                {catEmojis[cat]} {cat}
-              </button>
-            );
-          })}
+                    ? "text-white shadow-[0_0_20px_rgba(0,212,255,0.3)]"
+                    : "text-white/50 hover:text-white"
+                }`}
+              style={
+                activeFilter === cat
+                  ? { background: "linear-gradient(135deg, #00d4ff, #bf5af2)", border: "none" }
+                  : { background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }
+              }
+            >
+              {cat}
+            </button>
+          ))}
         </div>
+
+        {/* Secondary filters — only show for Characters */}
+        {activeFilter === "Characters" && (
+          <div className="space-y-3 mb-10">
+            {/* Rarity row */}
+            <div className="flex flex-wrap gap-2">
+              <span className="text-xs uppercase tracking-[0.18em] text-white/35 self-center mr-2">Rarity</span>
+              {RARITY_ORDER.map((rar) => {
+                const isActive = activeRarity === rar;
+                const tint = rar === "All" ? "#00d4ff" : rarityColors[rar] || "#aaa";
+                return (
+                  <button
+                    key={rar}
+                    onClick={() => handleRarityChange(rar)}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide
+                      transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]
+                      hover:scale-105 active:scale-95`}
+                    style={
+                      isActive
+                        ? { background: `${tint}22`, color: tint, border: `1px solid ${tint}66`, boxShadow: `0 0 14px ${tint}22` }
+                        : { background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.08)" }
+                    }
+                  >
+                    {rar}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+        {activeFilter !== "Characters" && <div className="mb-8" />}
+
+        {/* Empty state */}
+        {filtered.length === 0 && (
+          <div className="text-center py-16 px-4">
+            <div className="text-5xl mb-4 opacity-50">
+              {activeFilter === "Characters" && activeClass !== "All" && classMeta[activeClass as Exclude<CharacterClass, "All">]?.emoji}
+            </div>
+            <h3 className="font-[family-name:var(--font-display)] text-2xl font-bold text-white/80 mb-2">
+              No characters here yet
+            </h3>
+            <p className="text-white/40 text-sm max-w-md mx-auto">
+              {activeClass !== "All"
+                ? `The ${activeClass} class is coming soon — new ${classMeta[activeClass as Exclude<CharacterClass, "All">]?.desc.toLowerCase()} are on the way.`
+                : "Try a different filter combination."}
+            </p>
+          </div>
+        )}
 
         {/* Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -247,22 +293,6 @@ export default function Projects() {
                     >
                       Coming Soon
                     </span>
-                  </div>
-                ) : project.category === "Games" ? (
-                  <div className="flex flex-col items-center gap-3">
-                    <span className="text-6xl">{project.emoji}</span>
-                    {project.featured ? (
-                      <a href="https://game.timur.world" target="_blank" rel="noopener noreferrer"
-                        className="px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase"
-                        style={{ background: "linear-gradient(135deg, #ffe23d, #ff9f0a)", color: "#0f0825" }}>
-                        ▶ Play Now
-                      </a>
-                    ) : (
-                      <span className="px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase"
-                        style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.4)", border: "1px solid rgba(255,255,255,0.1)" }}>
-                        Coming Soon
-                      </span>
-                    )}
                   </div>
                 ) : null}
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, #0f0825, transparent 40%)" }} />
