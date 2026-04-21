@@ -32,9 +32,9 @@ const characters = [
   { name: "Pizzini Partyini",   file: "15_noobini_partyini.png",       rarity: "Brainrot God", mult: "7x",   color: "#2ecc71", class: "Partini" },
   { name: "Noo Mio Heartini",   file: "18_noo_my_heart.png",           rarity: "Rare",         mult: "8x",   color: "#8b0000", class: "Lovini" },
   { name: "Cupidini Hotspottini", file: "19_cupid_hotspot.png",        rarity: "Legendary",    mult: "9x",   color: "#ff4500", class: "Lovini" },
-  { name: "Stick Stick",        file: "20_stick_stick.png",            rarity: "Secret",       mult: "9.5x", color: "#00d4ff", class: "Sportini" },
-  { name: "No My Pucks",        file: "21_no_my_pucks.png",            rarity: "Secret",       mult: "12x",  color: "#30d158", class: "Sportini" },
-  { name: "Hockey Bros",        file: "22_hockey_bros.png",            rarity: "Limited",      mult: "22x",  color: "#ffe23d", class: "Sportini" },
+  { name: "Stick Stick",        file: "20_stick_stick.png",            rarity: "Secret",       mult: "9.5x", color: "#00d4ff", class: "Sportini", isNew: true },
+  { name: "No My Pucks",        file: "21_no_my_pucks.png",            rarity: "Secret",       mult: "12x",  color: "#30d158", class: "Sportini", isNew: true },
+  { name: "Hockey Bros",        file: "22_hockey_bros.png",            rarity: "Limited",      mult: "22x",  color: "#ffe23d", class: "Sportini", isNew: true },
 ];
 // Order intentional: Limited sits near the top (between Secret and OG) as
 // the "collector's edition" rarity.
@@ -62,6 +62,7 @@ type Project = {
   rarity?: string;
   mult?: string;
   charClass?: Exclude<CharacterClass, "All">;
+  isNew?: boolean;
 };
 
 const projects: Project[] = [
@@ -77,6 +78,7 @@ const projects: Project[] = [
     rarity: ch.rarity,
     mult: ch.mult,
     charClass: ch.class as Exclude<CharacterClass, "All">,
+    isNew: (ch as { isNew?: boolean }).isNew ?? false,
   })),
   // Backgrounds — all 19 worlds
   { title: "Candy Dreamland", category: "Backgrounds" as const, image: "/worlds/bg_01.png", emoji: "🍭", description: "Noobini Lovini's sweet world of lollipops and cotton candy.", glow: "#ff69b4", featured: false },
@@ -263,6 +265,19 @@ export default function Projects() {
                   style={{ background: `${rarityColors[project.rarity] || "#aaa"}22`, color: rarityColors[project.rarity] || "#aaa", border: `1px solid ${rarityColors[project.rarity] || "#aaa"}44` }}
                 >
                   {project.rarity}
+                </div>
+              )}
+
+              {/* NEW badge — sits below the rarity badge on fresh drops */}
+              {project.isNew && (
+                <div className="absolute top-11 left-3 z-20 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.18em]"
+                  style={{
+                    background: "linear-gradient(135deg, #30d158, #00d4ff)",
+                    color: "#0f0825",
+                    boxShadow: "0 0 14px rgba(48,209,88,0.45)",
+                  }}
+                >
+                  ✨ New
                 </div>
               )}
 
