@@ -101,6 +101,7 @@ const projects: Project[] = [
   { title: "Crimson Arena", category: "Backgrounds" as const, image: "/worlds/bg_17.png", emoji: "🔥", description: "Chiclitera Cupidini's fiery battlefield.", glow: "#dc143c", featured: false },
   { title: "Rainy Night", category: "Backgrounds" as const, image: "/worlds/bg_18.png", emoji: "🌧️", description: "Noo Mio Heartini's moody midnight rain.", glow: "#8b0000", featured: false },
   { title: "Volcano Throne", category: "Backgrounds" as const, image: "/worlds/bg_19.png", emoji: "🌋", description: "Cupidini Hotspottini's epic lava kingdom.", glow: "#ff4500", featured: false },
+  { title: "Hockey Rink", category: "Backgrounds" as const, image: "/worlds/bg_20.png", emoji: "🏒", description: "The Sportini crew's ice arena — home of Stick Stick, No My Pucks & Hockey Bros.", glow: "#00d4ff", featured: false },
 ];
 
 const ITEMS_PER_PAGE = 9;
