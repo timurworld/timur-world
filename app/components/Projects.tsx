@@ -29,6 +29,7 @@ const characters = [
   { name: "Cupidini Sahuroni",  file: "10_cupid_cupid_sahur.png",      rarity: "Legendary",    mult: "5.5x", color: "#ff1493", class: "Lovini" },
   { name: "Rositti Tueletti",   file: "11_rositti_tueletti.png",       rarity: "Rare",         mult: "6x",   color: "#ba55d3", class: "Lovini" },
   { name: "Birthdayini Cardini", file: "12_birthdayini_cardini.png",   rarity: "Brainrot God", mult: "6.5x", color: "#ffd700", class: "Partini" },
+  { name: "Cakini Elephantini", file: "13_cakini_elephantini.png",     rarity: "OG",           mult: "6.75x",color: "#9b8ec4", class: "Partini" },
   { name: "Pizzini Partyini",   file: "15_noobini_partyini.png",       rarity: "Brainrot God", mult: "7x",   color: "#2ecc71", class: "Partini" },
   { name: "Noo Mio Heartini",   file: "18_noo_my_heart.png",           rarity: "Rare",         mult: "8x",   color: "#8b0000", class: "Lovini" },
   { name: "Cupidini Hotspottini", file: "19_cupid_hotspot.png",        rarity: "Legendary",    mult: "9x",   color: "#ff4500", class: "Lovini" },
@@ -290,7 +291,7 @@ export default function Projects() {
                     src={project.image}
                     alt={project.title}
                     loading="lazy"
-                    className="max-w-[70%] max-h-[85%] object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
+                    className="max-w-[85%] max-h-[92%] object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
                     style={{ filter: `drop-shadow(0 0 15px ${project.glow}66)` }}
                   />
                 ) : project.category === "Backgrounds" && project.image ? (
