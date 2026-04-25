@@ -6,8 +6,9 @@ import { useReveal } from "../hooks/useReveal";
 const categories = ["Characters", "Backgrounds"] as const;
 
 // Character classes — thematic families grouping characters by vibe.
-// "Prestige" is the rare endgame tier — earned only by ascending in the game.
-const CHARACTER_CLASSES = ["All", "Lovini", "Partini", "Robotini", "Sportini", "Prestige"] as const;
+// "Foodini" covers the new edible-themed cast (sushi, fruit, berries...) —
+// distinct from Partini which is birthday/party food.
+const CHARACTER_CLASSES = ["All", "Lovini", "Partini", "Robotini", "Sportini", "Foodini"] as const;
 type CharacterClass = typeof CHARACTER_CLASSES[number];
 
 const classMeta: Record<Exclude<CharacterClass, "All">, { emoji: string; desc: string; color: string }> = {
@@ -15,7 +16,7 @@ const classMeta: Record<Exclude<CharacterClass, "All">, { emoji: string; desc: s
   Partini:  { emoji: "🎉", desc: "Chaos characters",     color: "#ffd700" },
   Robotini: { emoji: "🤖", desc: "Tech characters",      color: "#00d4ff" },
   Sportini: { emoji: "🏆", desc: "Sports characters",    color: "#30d158" },
-  Prestige: { emoji: "👑", desc: "Earned by ascending",  color: "#a259ff" },
+  Foodini:  { emoji: "🍣", desc: "Food characters",      color: "#ff6f61" },
 };
 
 const characters = [
@@ -39,9 +40,10 @@ const characters = [
   { name: "No My Pucks",        file: "21_no_my_pucks.png",            rarity: "Secret",       mult: "12x",  color: "#30d158", class: "Sportini", isNew: true },
   { name: "Hockey Bros",        file: "22_hockey_bros.png",            rarity: "Limited",      mult: "22x",  color: "#ffe23d", class: "Sportini", isNew: true },
   // Prestige skins — earned only by ascending in the game, not random drops.
-  { name: "Sushiro & Soyaro",   file: "23_sushiro_soyaro.png",         rarity: "Prestige",     mult: "12x",  color: "#ff6f61", class: "Prestige", isNew: true, unlock: "Ascend 1×" },
-  { name: "Kingurini Orangini", file: "24_kinguru_orange.png",         rarity: "Prestige",     mult: "18x",  color: "#ff8c00", class: "Prestige", isNew: true, unlock: "Ascend 3×" },
-  { name: "Auraberry",          file: "25_auraberry.png",              rarity: "Prestige",     mult: "20x",  color: "#a259ff", class: "Prestige", isNew: true, unlock: "Ascend 5×" },
+  // All food-themed → Foodini class. Prestige is the rarity tier.
+  { name: "Sushiro & Soyaro",   file: "23_sushiro_soyaro.png",         rarity: "Prestige",     mult: "12x",  color: "#ff6f61", class: "Foodini",  isNew: true, unlock: "Ascend 1×" },
+  { name: "Kingurini Orangini", file: "24_kinguru_orange.png",         rarity: "Prestige",     mult: "18x",  color: "#ff8c00", class: "Foodini",  isNew: true, unlock: "Ascend 3×" },
+  { name: "Auraberry",          file: "25_auraberry.png",              rarity: "Prestige",     mult: "20x",  color: "#a259ff", class: "Foodini",  isNew: true, unlock: "Ascend 5×" },
 ];
 // Order intentional: Prestige sits at the very top — the aspirational endgame
 // tier. Limited is "scarce drops"; Prestige is "skill flex".
