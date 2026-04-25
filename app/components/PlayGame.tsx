@@ -26,8 +26,8 @@ export default function PlayGame() {
             <span className="gradient-text">Brainrot Clicker</span>
           </h2>
           <p className="text-white/40 text-lg max-w-2xl mx-auto leading-relaxed">
-            My first game — tap your way to brainrot mastery. Unlock 15
-            characters, each with their own world! 💀🔥
+            My first game — tap your way to brainrot mastery. Unlock 24+
+            characters, fuse limited skins in lockers, and trade with friends! 💀🔥
           </p>
         </div>
 

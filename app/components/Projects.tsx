@@ -5,8 +5,9 @@ import { useReveal } from "../hooks/useReveal";
 
 const categories = ["Characters", "Backgrounds"] as const;
 
-// Character classes — thematic families grouping characters by vibe
-const CHARACTER_CLASSES = ["All", "Lovini", "Partini", "Robotini", "Sportini"] as const;
+// Character classes — thematic families grouping characters by vibe.
+// "Prestige" is the rare endgame tier — earned only by ascending in the game.
+const CHARACTER_CLASSES = ["All", "Lovini", "Partini", "Robotini", "Sportini", "Prestige"] as const;
 type CharacterClass = typeof CHARACTER_CLASSES[number];
 
 const classMeta: Record<Exclude<CharacterClass, "All">, { emoji: string; desc: string; color: string }> = {
@@ -14,6 +15,7 @@ const classMeta: Record<Exclude<CharacterClass, "All">, { emoji: string; desc: s
   Partini:  { emoji: "🎉", desc: "Chaos characters",     color: "#ffd700" },
   Robotini: { emoji: "🤖", desc: "Tech characters",      color: "#00d4ff" },
   Sportini: { emoji: "🏆", desc: "Sports characters",    color: "#30d158" },
+  Prestige: { emoji: "👑", desc: "Earned by ascending",  color: "#a259ff" },
 };
 
 const characters = [
@@ -36,10 +38,14 @@ const characters = [
   { name: "Stick Stick",        file: "20_stick_stick.png",            rarity: "Secret",       mult: "9.5x", color: "#00d4ff", class: "Sportini", isNew: true },
   { name: "No My Pucks",        file: "21_no_my_pucks.png",            rarity: "Secret",       mult: "12x",  color: "#30d158", class: "Sportini", isNew: true },
   { name: "Hockey Bros",        file: "22_hockey_bros.png",            rarity: "Limited",      mult: "22x",  color: "#ffe23d", class: "Sportini", isNew: true },
+  // Prestige skins — earned only by ascending in the game, not random drops.
+  { name: "Sushiro & Soyaro",   file: "23_sushiro_soyaro.png",         rarity: "Prestige",     mult: "12x",  color: "#ff6f61", class: "Prestige", isNew: true, unlock: "Ascend 1×" },
+  { name: "Kingurini Orangini", file: "24_kinguru_orange.png",         rarity: "Prestige",     mult: "18x",  color: "#ff8c00", class: "Prestige", isNew: true, unlock: "Ascend 3×" },
+  { name: "Auraberry",          file: "25_auraberry.png",              rarity: "Prestige",     mult: "25x",  color: "#a259ff", class: "Prestige", isNew: true, unlock: "Ascend 5×" },
 ];
-// Order intentional: Limited sits near the top (between Secret and OG) as
-// the "collector's edition" rarity.
-const RARITY_ORDER = ["All", "Common", "Rare", "Legendary", "Brainrot God", "Secret", "Limited", "OG"] as const;
+// Order intentional: Prestige sits at the very top — the aspirational endgame
+// tier. Limited is "scarce drops"; Prestige is "skill flex".
+const RARITY_ORDER = ["All", "Prestige", "Common", "Rare", "Legendary", "Brainrot God", "Secret", "Limited", "OG"] as const;
 type Rarity = typeof RARITY_ORDER[number];
 
 const rarityColors: Record<string, string> = {
@@ -50,6 +56,7 @@ const rarityColors: Record<string, string> = {
   "Brainrot God": "#ff2d78",
   Secret: "#bf5af2",
   OG: "#30d158",
+  Prestige: "#a259ff",
 };
 
 type Project = {
@@ -64,6 +71,7 @@ type Project = {
   mult?: string;
   charClass?: Exclude<CharacterClass, "All">;
   isNew?: boolean;
+  unlock?: string;          // e.g. "Ascend 3×" — shown as a badge for prestige skins
 };
 
 const projects: Project[] = [
@@ -80,6 +88,7 @@ const projects: Project[] = [
     mult: ch.mult,
     charClass: ch.class as Exclude<CharacterClass, "All">,
     isNew: (ch as { isNew?: boolean }).isNew ?? false,
+    unlock: (ch as { unlock?: string }).unlock,
   })),
   // Backgrounds — all 19 worlds
   { title: "Candy Dreamland", category: "Backgrounds" as const, image: "/worlds/bg_01.png", emoji: "🍭", description: "Noobini Lovini's sweet world of lollipops and cotton candy.", glow: "#ff69b4", featured: false },
@@ -280,6 +289,19 @@ export default function Projects() {
                   }}
                 >
                   ✨ New
+                </div>
+              )}
+
+              {/* Unlock requirement badge (Prestige tier) — top-right */}
+              {project.unlock && (
+                <div className="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.18em]"
+                  style={{
+                    background: "linear-gradient(135deg, #a259ff, #ffd700)",
+                    color: "#0f0825",
+                    boxShadow: "0 0 14px rgba(162,89,255,0.45)",
+                  }}
+                >
+                  👑 {project.unlock}
                 </div>
               )}
 
