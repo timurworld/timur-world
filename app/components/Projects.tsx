@@ -113,6 +113,9 @@ const projects: Project[] = [
   { title: "Rainy Night", category: "Backgrounds" as const, image: "/worlds/bg_18.png", emoji: "🌧️", description: "Noo Mio Heartini's moody midnight rain.", glow: "#8b0000", featured: false },
   { title: "Volcano Throne", category: "Backgrounds" as const, image: "/worlds/bg_19.png", emoji: "🌋", description: "Cupidini Hotspottini's epic lava kingdom.", glow: "#ff4500", featured: false },
   { title: "Hockey Rink", category: "Backgrounds" as const, image: "/worlds/bg_20.png", emoji: "🏒", description: "The Sportini crew's ice arena — home of Stick Stick, No My Pucks & Hockey Bros.", glow: "#00d4ff", featured: false },
+  { title: "Citrus Oasis", category: "Backgrounds" as const, image: "/worlds/bg_21.png", emoji: "🍊", description: "Kingurini Orangini's tropical orange grove with waterfalls and paw banners.", glow: "#ff8c00", featured: false },
+  { title: "Neon Berry City", category: "Backgrounds" as const, image: "/worlds/bg_22.png", emoji: "🍓", description: "Auraberry's electric skyline lit by neon strawberries and stars.", glow: "#a259ff", featured: false },
+  { title: "Sushi Sunset", category: "Backgrounds" as const, image: "/worlds/bg_23.png", emoji: "🍣", description: "Sushiro & Soyaro's torii-gated sushi shop at golden hour.", glow: "#ff6f61", featured: false },
 ];
 
 const ITEMS_PER_PAGE = 9;
