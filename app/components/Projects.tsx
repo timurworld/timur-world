@@ -129,6 +129,11 @@ export default function Projects() {
       if (activeRarity !== "All" && p.rarity !== activeRarity) return false;
     }
     return true;
+  }).sort((a, b) => {
+    // Newest (isNew) first; preserves the original ordering otherwise.
+    const an = a.isNew ? 0 : 1;
+    const bn = b.isNew ? 0 : 1;
+    return an - bn;
   });
   const totalPages = Math.ceil(allFiltered.length / ITEMS_PER_PAGE);
   const filtered = allFiltered.slice(page * ITEMS_PER_PAGE, (page + 1) * ITEMS_PER_PAGE);
