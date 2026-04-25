@@ -41,7 +41,7 @@ const characters = [
   // Prestige skins — earned only by ascending in the game, not random drops.
   { name: "Sushiro & Soyaro",   file: "23_sushiro_soyaro.png",         rarity: "Prestige",     mult: "12x",  color: "#ff6f61", class: "Prestige", isNew: true, unlock: "Ascend 1×" },
   { name: "Kingurini Orangini", file: "24_kinguru_orange.png",         rarity: "Prestige",     mult: "18x",  color: "#ff8c00", class: "Prestige", isNew: true, unlock: "Ascend 3×" },
-  { name: "Auraberry",          file: "25_auraberry.png",              rarity: "Prestige",     mult: "25x",  color: "#a259ff", class: "Prestige", isNew: true, unlock: "Ascend 5×" },
+  { name: "Auraberry",          file: "25_auraberry.png",              rarity: "Prestige",     mult: "20x",  color: "#a259ff", class: "Prestige", isNew: true, unlock: "Ascend 5×" },
 ];
 // Order intentional: Prestige sits at the very top — the aspirational endgame
 // tier. Limited is "scarce drops"; Prestige is "skill flex".
