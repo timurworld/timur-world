@@ -12,8 +12,19 @@ export default function PlayGame() {
       <div className="absolute inset-0 grain" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
-        {/* Banner image is the entire hero — title, tagline, character grid,
-            PLAY NOW CTA, and value props are all baked into the artwork.
+        {/* My Games section label — matches the About pill style exactly:
+            ⚡ icon + section name in neon-yellow, yellow tinted bg + border. */}
+        <div className="reveal mb-6">
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase"
+            style={{ background: "rgba(255,226,61,0.1)", border: "1px solid rgba(255,226,61,0.2)" }}
+          >
+            <span className="text-lg">⚡</span>
+            <span className="text-neon-yellow">My Games</span>
+          </span>
+        </div>
+
+        {/* Banner image is the rest of the hero — title, tagline, character
+            grid, PLAY NOW CTA, and value props are all baked into the artwork.
             Whole banner is a single clickable link to the game. */}
         <a
           href={GAME_URL}
