@@ -10,16 +10,20 @@ export default function PlayGame() {
         <div className="absolute bottom-[5%] right-[5%] w-[40%] h-[50%] rounded-full bg-neon-pink/[0.05] blur-[140px]" />
       </div>
       <div className="absolute inset-0 grain" />
+      {/* Top divider line — matches About + Projects pattern. Uses the section's
+          own color identity (orange→pink→yellow gradient) so each section reads
+          as visually distinct as you scroll between them. */}
+      <div className="absolute top-0 left-[5%] right-[5%] h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(255,159,10,0.18), rgba(255,45,120,0.18), rgba(255,226,61,0.18), transparent)" }} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
-        {/* My Games section label — matches the About pill style exactly:
-            ⚡ icon + section name in neon-yellow, yellow tinted bg + border. */}
+        {/* My Games section label — orange theme so it's distinct from About
+            (pure yellow) and Projects (pink). 🎮 icon also signals "games". */}
         <div className="reveal mb-6">
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase"
-            style={{ background: "rgba(255,226,61,0.1)", border: "1px solid rgba(255,226,61,0.2)" }}
+            style={{ background: "rgba(255,159,10,0.1)", border: "1px solid rgba(255,159,10,0.25)" }}
           >
-            <span className="text-lg">⚡</span>
-            <span className="text-neon-yellow">My Games</span>
+            <span className="text-lg">🎮</span>
+            <span style={{ color: "#ff9f0a" }}>My Games</span>
           </span>
         </div>
 
