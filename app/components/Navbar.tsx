@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 const navItems = [
   { label: "About Timur", href: "#about" },
+  { label: "My Games", href: "#play" },
 ];
 
 export default function Navbar() {
