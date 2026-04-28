@@ -11,70 +11,41 @@ export default function PlayGame() {
       </div>
       <div className="absolute inset-0 grain" />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <a href={GAME_URL} target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-6 transition-all hover:scale-105 hover:border-neon-yellow/50 cursor-pointer no-underline"
-            style={{ background: "rgba(255,226,61,0.1)", border: "1px solid rgba(255,226,61,0.2)" }}
-          >
-            <span className="text-lg">🕹️</span>
-            <span className="text-neon-yellow">My Games</span>
-          </a>
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
+        {/* Banner image is the entire hero — title, tagline, character grid,
+            PLAY NOW CTA, and value props are all baked into the artwork.
+            Whole banner is a single clickable link to the game. */}
+        <a
+          href={GAME_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative block rounded-3xl overflow-hidden cursor-pointer group transition-all duration-300
+            hover:scale-[1.01] hover:shadow-[0_0_80px_rgba(255,226,61,0.25)]"
+          style={{
+            border: "2px solid rgba(255,226,61,0.2)",
+            boxShadow: "0 0 60px rgba(255,226,61,0.08), 0 0 120px rgba(255,45,120,0.05)",
+            WebkitTapHighlightColor: "transparent",
+            touchAction: "manipulation",
+            textDecoration: "none",
+          }}
+          aria-label="Play Brainrot Clicker — opens in a new tab"
+        >
+          <img
+            src="/banner.jpg"
+            alt="Brainrot Clicker — tap, unlock, go brainrot. 100+ characters, limited skins, trade with friends."
+            loading="eager"
+            className="w-full h-auto block"
+          />
+        </a>
 
-          <h2 className="font-[family-name:var(--font-display)] text-4xl sm:text-5xl md:text-7xl font-bold tracking-[-0.03em] leading-[1.05] mb-4">
-            <span className="gradient-text">Brainrot Clicker</span>
-          </h2>
-          <p className="text-white/40 text-lg max-w-2xl mx-auto leading-relaxed">
-            My first game — tap your way to brainrot mastery. Unlock 24+
-            characters, fuse limited skins in lockers, and trade with friends! 💀🔥
-          </p>
-        </div>
-
-        {/* Play button — opens game.timur.world in a new tab so it has the full
-            screen instead of being trapped in an iframe on this page. */}
-        <div className="flex justify-center">
-          <a
-            href={GAME_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative rounded-3xl overflow-hidden flex items-center justify-center cursor-pointer group w-full max-w-2xl"
-            style={{
-              background: "var(--color-surface)",
-              border: "2px solid rgba(255,226,61,0.2)",
-              boxShadow: "0 0 60px rgba(255,226,61,0.08), 0 0 120px rgba(255,45,120,0.05)",
-              minHeight: "260px",
-              padding: "60px 20px",
-              WebkitTapHighlightColor: "transparent",
-              touchAction: "manipulation",
-              textDecoration: "none",
-            }}
-          >
-            <div className="flex flex-col items-center gap-4">
-              <div
-                className="w-24 h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center
-                  transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]
-                  group-hover:scale-110 animate-scale-pulse"
-                style={{
-                  background: "linear-gradient(135deg, #ffe23d, #ff9f0a)",
-                  boxShadow: "0 0 40px rgba(255,226,61,0.4), 0 0 80px rgba(255,226,61,0.2)",
-                }}
-              >
-                <svg className="w-12 h-12 md:w-16 md:h-16 text-[#0f0825] ml-1" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-              <span className="font-[family-name:var(--font-display)] text-xl md:text-2xl font-bold text-neon-yellow tracking-wider uppercase">
-                Play Brainrot Clicker
-              </span>
-              <span className="inline-flex items-center gap-1.5 text-xs text-white/40 tracking-wider uppercase font-bold">
-                game.timur.world
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </span>
-            </div>
-          </a>
+        {/* Tiny caption under the banner so the destination is obvious */}
+        <div className="text-center mt-4">
+          <span className="inline-flex items-center gap-1.5 text-xs text-white/40 tracking-wider uppercase font-bold">
+            game.timur.world
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </span>
         </div>
       </div>
     </section>

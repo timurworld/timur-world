@@ -101,7 +101,7 @@ export default function About() {
 
           {/* Visual — 2 cols */}
           <div className="reveal md:col-span-2 relative mt-4">
-            <div className="relative rounded-3xl overflow-hidden aspect-[3/4]"
+            <div className="relative rounded-3xl overflow-hidden aspect-square"
               style={{
                 border: "2px solid rgba(0,212,255,0.2)",
                 boxShadow: "0 0 40px rgba(0,212,255,0.1), 0 0 80px rgba(191,90,242,0.08)",
@@ -110,7 +110,7 @@ export default function About() {
               <img
                 src="/timur_about.png"
                 alt="Timur"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
               />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #0f0825 0%, transparent 50%)" }} />
 
