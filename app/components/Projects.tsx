@@ -44,10 +44,13 @@ const characters = [
   { name: "Sushiro & Soyaro",   file: "23_sushiro_soyaro.png",         rarity: "Prestige",     mult: "12x",  color: "#ff6f61", class: "Foodini",  isNew: true, unlock: "Ascend 1×" },
   { name: "Kingurini Orangini", file: "24_kinguru_orange.png",         rarity: "Prestige",     mult: "18x",  color: "#ff8c00", class: "Foodini",  isNew: true, unlock: "Ascend 3×" },
   { name: "Auraberry",          file: "25_auraberry.png",              rarity: "Prestige",     mult: "20x",  color: "#a259ff", class: "Foodini",  isNew: true, unlock: "Ascend 5×" },
+  // Maple Cup Mythic — first Mythic-tier skin. Fusion-only crossover of the
+  // Cupidini and Sportini lines. Bears Timur's signature "T" + #7. Cap of 10.
+  { name: "Cupideini Hockini",  file: "26_cupideini_hockini.png",      rarity: "Mythic",       mult: "25x",  color: "#ffd700", class: "Sportini", isNew: true, unlock: "Maple Cup fusion" },
 ];
 // Order intentional: Prestige sits at the very top — the aspirational endgame
 // tier. Limited is "scarce drops"; Prestige is "skill flex".
-const RARITY_ORDER = ["All", "Prestige", "Common", "Rare", "Legendary", "Brainrot God", "Secret", "Limited", "OG"] as const;
+const RARITY_ORDER = ["All", "Mythic", "Prestige", "Common", "Rare", "Legendary", "Brainrot God", "Secret", "Limited", "OG"] as const;
 type Rarity = typeof RARITY_ORDER[number];
 
 const rarityColors: Record<string, string> = {
@@ -59,6 +62,7 @@ const rarityColors: Record<string, string> = {
   Secret: "#bf5af2",
   OG: "#30d158",
   Prestige: "#a259ff",
+  Mythic: "#ffd700",
 };
 
 type Project = {
@@ -92,7 +96,8 @@ const projects: Project[] = [
     isNew: (ch as { isNew?: boolean }).isNew ?? false,
     unlock: (ch as { unlock?: string }).unlock,
   })),
-  // Backgrounds — all 19 worlds
+  // Backgrounds — newest first.
+  { title: "Maple Cup Arena", category: "Backgrounds" as const, image: "/worlds/bg_24.jpg", emoji: "🏒", description: "Timur World's flagship hockey arena — home of the Maple Cup and Cupideini Hockini.", glow: "#ffd700", featured: true },
   { title: "Candy Dreamland", category: "Backgrounds" as const, image: "/worlds/bg_01.jpg", emoji: "🍭", description: "Noobini Lovini's sweet world of lollipops and cotton candy.", glow: "#ff69b4", featured: false },
   { title: "Castle at Dusk", category: "Backgrounds" as const, image: "/worlds/bg_02.jpg", emoji: "🏰", description: "Romantini Grandini's medieval kingdom under crimson sky.", glow: "#e74c3c", featured: false },
   { title: "Heart Cloud Kingdom", category: "Backgrounds" as const, image: "/worlds/bg_03.jpg", emoji: "💕", description: "Lovini Lovini Lovini's pink paradise of hearts and rainbows.", glow: "#ff1493", featured: false },
