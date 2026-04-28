@@ -19,34 +19,38 @@ const classMeta: Record<Exclude<CharacterClass, "All">, { emoji: string; desc: s
   Foodini:  { emoji: "🍣", desc: "Food characters",      color: "#ff6f61" },
 };
 
+// NEWEST FIRST — most recent character sits at index 0. When you ship a new
+// character, prepend it to the top of this array (don't append to the bottom).
 const characters = [
-  { name: "Noobini Lovini",     file: "01_noobini_lovini.png",         rarity: "Common",       mult: "1x",   color: "#ff69b4", class: "Lovini" },
-  { name: "Romantini Grandini", file: "02_la_romantic_grande.png",     rarity: "Common",       mult: "1.5x", color: "#e74c3c", class: "Lovini" },
-  { name: "Lovini Lovini Lovini", file: "03_lovini_lovini_lovini.png", rarity: "Brainrot God", mult: "2x",   color: "#ff1493", class: "Lovini" },
-  { name: "Teddini & Robotini", file: "04_teddy_and_rosie.png",        rarity: "Legendary",    mult: "2.5x", color: "#c8894f", class: "Robotini" },
-  { name: "Noobini Partini",    file: "05_noobini_partini.png",        rarity: "Brainrot God", mult: "3x",   color: "#ff6347", class: "Partini" },
-  { name: "Cakini Presintini",  file: "06_cakini_and_presintini.png",  rarity: "Secret",       mult: "3.5x", color: "#ff8c00", class: "Partini" },
-  { name: "Lovini Rosetti",     file: "07_lovin_rose.png",             rarity: "Rare",         mult: "4x",   color: "#4db8db", class: "Lovini" },
-  { name: "Heartini Smilekurro", file: "08_heartini_smilekur.png",     rarity: "Common",       mult: "4.5x", color: "#40c4c4", class: "Lovini" },
-  { name: "Dragini Partini",    file: "09_dragon_partyini.png",        rarity: "OG",           mult: "5x",   color: "#ffd700", class: "Partini" },
-  { name: "Cupidini Sahuroni",  file: "10_cupid_cupid_sahur.png",      rarity: "Legendary",    mult: "5.5x", color: "#ff1493", class: "Lovini" },
-  { name: "Rositti Tueletti",   file: "11_rositti_tueletti.png",       rarity: "Rare",         mult: "6x",   color: "#ba55d3", class: "Lovini" },
-  { name: "Birthdayini Cardini", file: "12_birthdayini_cardini.png",   rarity: "Brainrot God", mult: "6.5x", color: "#ffd700", class: "Partini" },
-  { name: "Cakini Elephantini", file: "13_cakini_elephantini.png",     rarity: "OG",           mult: "6.75x",color: "#9b8ec4", class: "Partini" },
-  { name: "Pizzini Partyini",   file: "15_noobini_partyini.png",       rarity: "Brainrot God", mult: "7x",   color: "#2ecc71", class: "Partini" },
-  { name: "Noo Mio Heartini",   file: "18_noo_my_heart.png",           rarity: "Rare",         mult: "8x",   color: "#8b0000", class: "Lovini" },
-  { name: "Cupidini Hotspottini", file: "19_cupid_hotspot.png",        rarity: "Legendary",    mult: "9x",   color: "#ff4500", class: "Lovini" },
-  { name: "Stick Stick",        file: "20_stick_stick.png",            rarity: "Secret",       mult: "9.5x", color: "#00d4ff", class: "Sportini", isNew: true },
-  { name: "No My Pucks",        file: "21_no_my_pucks.png",            rarity: "Secret",       mult: "12x",  color: "#30d158", class: "Sportini", isNew: true },
-  { name: "Hockey Bros",        file: "22_hockey_bros.png",            rarity: "Limited",      mult: "22x",  color: "#ffe23d", class: "Sportini", isNew: true },
-  // Prestige skins — earned only by ascending in the game, not random drops.
-  // All food-themed → Foodini class. Prestige is the rarity tier.
-  { name: "Sushiro & Soyaro",   file: "23_sushiro_soyaro.png",         rarity: "Prestige",     mult: "12x",  color: "#ff6f61", class: "Foodini",  isNew: true, unlock: "Ascend 1×" },
-  { name: "Kingurini Orangini", file: "24_kinguru_orange.png",         rarity: "Prestige",     mult: "18x",  color: "#ff8c00", class: "Foodini",  isNew: true, unlock: "Ascend 3×" },
-  { name: "Auraberry",          file: "25_auraberry.png",              rarity: "Prestige",     mult: "20x",  color: "#a259ff", class: "Foodini",  isNew: true, unlock: "Ascend 5×" },
   // Maple Cup Mythic — first Mythic-tier skin. Fusion-only crossover of the
   // Cupidini and Sportini lines. Bears Timur's signature "T" + #7. Cap of 10.
   { name: "Cupideini Hockini",  file: "26_cupideini_hockini.png",      rarity: "Mythic",       mult: "25x",  color: "#ffd700", class: "Sportini", isNew: true, unlock: "Maple Cup fusion" },
+  // Prestige skins — earned only by ascending in the game, not random drops.
+  // All food-themed → Foodini class. Prestige is the rarity tier.
+  { name: "Auraberry",          file: "25_auraberry.png",              rarity: "Prestige",     mult: "20x",  color: "#a259ff", class: "Foodini",  isNew: true, unlock: "Ascend 5×" },
+  { name: "Kingurini Orangini", file: "24_kinguru_orange.png",         rarity: "Prestige",     mult: "18x",  color: "#ff8c00", class: "Foodini",  isNew: true, unlock: "Ascend 3×" },
+  { name: "Sushiro & Soyaro",   file: "23_sushiro_soyaro.png",         rarity: "Prestige",     mult: "12x",  color: "#ff6f61", class: "Foodini",  isNew: true, unlock: "Ascend 1×" },
+  // Sportini event skins
+  { name: "Hockey Bros",        file: "22_hockey_bros.png",            rarity: "Limited",      mult: "22x",  color: "#ffe23d", class: "Sportini", isNew: true },
+  { name: "No My Pucks",        file: "21_no_my_pucks.png",            rarity: "Secret",       mult: "12x",  color: "#30d158", class: "Sportini", isNew: true },
+  { name: "Stick Stick",        file: "20_stick_stick.png",            rarity: "Secret",       mult: "9.5x", color: "#00d4ff", class: "Sportini", isNew: true },
+  // Legacy / points-unlock characters (oldest at the bottom)
+  { name: "Cupidini Hotspottini", file: "19_cupid_hotspot.png",        rarity: "Legendary",    mult: "9x",   color: "#ff4500", class: "Lovini" },
+  { name: "Noo Mio Heartini",   file: "18_noo_my_heart.png",           rarity: "Rare",         mult: "8x",   color: "#8b0000", class: "Lovini" },
+  { name: "Pizzini Partyini",   file: "15_noobini_partyini.png",       rarity: "Brainrot God", mult: "7x",   color: "#2ecc71", class: "Partini" },
+  { name: "Cakini Elephantini", file: "13_cakini_elephantini.png",     rarity: "OG",           mult: "6.75x",color: "#9b8ec4", class: "Partini" },
+  { name: "Birthdayini Cardini", file: "12_birthdayini_cardini.png",   rarity: "Brainrot God", mult: "6.5x", color: "#ffd700", class: "Partini" },
+  { name: "Rositti Tueletti",   file: "11_rositti_tueletti.png",       rarity: "Rare",         mult: "6x",   color: "#ba55d3", class: "Lovini" },
+  { name: "Cupidini Sahuroni",  file: "10_cupid_cupid_sahur.png",      rarity: "Legendary",    mult: "5.5x", color: "#ff1493", class: "Lovini" },
+  { name: "Dragini Partini",    file: "09_dragon_partyini.png",        rarity: "OG",           mult: "5x",   color: "#ffd700", class: "Partini" },
+  { name: "Heartini Smilekurro", file: "08_heartini_smilekur.png",     rarity: "Common",       mult: "4.5x", color: "#40c4c4", class: "Lovini" },
+  { name: "Lovini Rosetti",     file: "07_lovin_rose.png",             rarity: "Rare",         mult: "4x",   color: "#4db8db", class: "Lovini" },
+  { name: "Cakini Presintini",  file: "06_cakini_and_presintini.png",  rarity: "Secret",       mult: "3.5x", color: "#ff8c00", class: "Partini" },
+  { name: "Noobini Partini",    file: "05_noobini_partini.png",        rarity: "Brainrot God", mult: "3x",   color: "#ff6347", class: "Partini" },
+  { name: "Teddini & Robotini", file: "04_teddy_and_rosie.png",        rarity: "Legendary",    mult: "2.5x", color: "#c8894f", class: "Robotini" },
+  { name: "Lovini Lovini Lovini", file: "03_lovini_lovini_lovini.png", rarity: "Brainrot God", mult: "2x",   color: "#ff1493", class: "Lovini" },
+  { name: "Romantini Grandini", file: "02_la_romantic_grande.png",     rarity: "Common",       mult: "1.5x", color: "#e74c3c", class: "Lovini" },
+  { name: "Noobini Lovini",     file: "01_noobini_lovini.png",         rarity: "Common",       mult: "1x",   color: "#ff69b4", class: "Lovini" },
 ];
 // Order intentional: Prestige sits at the very top — the aspirational endgame
 // tier. Limited is "scarce drops"; Prestige is "skill flex".
