@@ -97,7 +97,7 @@ const projects: Project[] = [
     unlock: (ch as { unlock?: string }).unlock,
   })),
   // Backgrounds — newest first.
-  { title: "Maple Cup Arena", category: "Backgrounds" as const, image: "/worlds/bg_24.jpg", emoji: "🏒", description: "Timur World's flagship hockey arena — home of the Maple Cup and Cupideini Hockini.", glow: "#ffd700", featured: true },
+  { title: "Timur World Arena", category: "Backgrounds" as const, image: "/worlds/bg_24.jpg", emoji: "🏒", description: "Timur World's flagship hockey arena — home of the Maple Cup and Cupideini Hockini.", glow: "#ffd700", featured: true },
   { title: "Candy Dreamland", category: "Backgrounds" as const, image: "/worlds/bg_01.jpg", emoji: "🍭", description: "Noobini Lovini's sweet world of lollipops and cotton candy.", glow: "#ff69b4", featured: false },
   { title: "Castle at Dusk", category: "Backgrounds" as const, image: "/worlds/bg_02.jpg", emoji: "🏰", description: "Romantini Grandini's medieval kingdom under crimson sky.", glow: "#e74c3c", featured: false },
   { title: "Heart Cloud Kingdom", category: "Backgrounds" as const, image: "/worlds/bg_03.jpg", emoji: "💕", description: "Lovini Lovini Lovini's pink paradise of hearts and rainbows.", glow: "#ff1493", featured: false },
