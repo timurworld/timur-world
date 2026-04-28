@@ -1,8 +1,11 @@
 "use client";
 
+import { useReveal } from "../hooks/useReveal";
+
 const GAME_URL = "https://game.timur.world";
 
 export default function PlayGame() {
+  const ref = useReveal();
   return (
     <section id="play" className="relative py-24 md:py-36 overflow-hidden">
       <div className="absolute inset-0">
@@ -15,7 +18,7 @@ export default function PlayGame() {
           as visually distinct as you scroll between them. */}
       <div className="absolute top-0 left-[5%] right-[5%] h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(255,159,10,0.18), rgba(255,45,120,0.18), rgba(255,226,61,0.18), transparent)" }} />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
+      <div ref={ref} className="relative z-10 max-w-6xl mx-auto px-6">
         {/* My Games section label — orange theme so it's distinct from About
             (pure yellow) and Projects (pink). 🎮 icon also signals "games". */}
         <div className="reveal mb-6">
