@@ -20,8 +20,9 @@ export default function PlayGame() {
 
       <div ref={ref} className="relative z-10 max-w-6xl mx-auto px-6">
         {/* My Games section label — orange theme so it's distinct from About
-            (pure yellow) and Projects (pink). 🎮 icon also signals "games". */}
-        <div className="reveal mb-6">
+            (pure yellow) and Projects (pink). 🎮 icon also signals "games".
+            No .reveal class — show unconditionally, never gated by scroll. */}
+        <div className="mb-6">
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold tracking-widest uppercase"
             style={{ background: "rgba(255,159,10,0.1)", border: "1px solid rgba(255,159,10,0.25)" }}
           >
