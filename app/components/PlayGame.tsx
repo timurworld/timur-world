@@ -33,29 +33,31 @@ export default function PlayGame() {
 
         {/* Banner image is the rest of the hero — title, tagline, character
             grid, PLAY NOW CTA, and value props are all baked into the artwork.
-            Whole banner is a single clickable link to the game. */}
-        <a
-          href={GAME_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="relative block rounded-3xl overflow-hidden cursor-pointer group transition-all duration-300
-            hover:scale-[1.01] hover:shadow-[0_0_80px_rgba(255,226,61,0.25)]"
-          style={{
-            border: "2px solid rgba(255,226,61,0.2)",
-            boxShadow: "0 0 60px rgba(255,226,61,0.08), 0 0 120px rgba(255,45,120,0.05)",
-            WebkitTapHighlightColor: "transparent",
-            touchAction: "manipulation",
-            textDecoration: "none",
-          }}
-          aria-label="Play Brainrot Clicker — opens in a new tab"
-        >
-          <img
-            src="/banner.jpg?v=20260428c"
-            alt="Brainrot Clicker — tap, unlock, go brainrot. 100+ characters, limited skins, trade with friends."
-            loading="eager"
-            className="w-full h-auto block"
-          />
-        </a>
+            The whole banner is a single clickable link to the game, wrapped in
+            an animated conic-gradient frame so the entire card reads as
+            interactive (hover lift + active press for tactile feel). */}
+        <div className="play-card-frame max-w-4xl mx-auto">
+          <a
+            href={GAME_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative block overflow-hidden cursor-pointer group"
+            style={{
+              borderRadius: "calc(1.5rem - 3px)",
+              WebkitTapHighlightColor: "transparent",
+              touchAction: "manipulation",
+              textDecoration: "none",
+            }}
+            aria-label="Play Brainrot Clicker — opens in a new tab"
+          >
+            <img
+              src="/banner.jpg?v=20260428c"
+              alt="Brainrot Clicker — tap, unlock, go brainrot. 100+ characters, limited skins, trade with friends."
+              loading="eager"
+              className="w-full h-auto block"
+            />
+          </a>
+        </div>
 
         {/* Tiny caption under the banner so the destination is obvious */}
         <div className="text-center mt-4">

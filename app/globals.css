@@ -201,3 +201,55 @@ html {
 .hero-glow {
   animation: hero-glow 4s ease-in-out infinite;
 }
+
+/* ── Play-now banner: animated conic-gradient frame ── */
+@property --play-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes play-angle-rotate {
+  to { --play-angle: 360deg; }
+}
+
+.play-card-frame {
+  position: relative;
+  border-radius: 1.5rem;
+  padding: 3px;
+  background: conic-gradient(
+    from var(--play-angle),
+    #ff9f0a,
+    #ff2d78,
+    #ffe23d,
+    #ff9f0a,
+    #ff2d78,
+    #ffe23d,
+    #ff9f0a
+  );
+  animation: play-angle-rotate 5s linear infinite;
+  box-shadow:
+    0 0 50px rgba(255, 159, 10, 0.22),
+    0 0 110px rgba(255, 45, 120, 0.16);
+  transition: box-shadow 0.3s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+
+.play-card-frame:has(a:hover),
+.play-card-frame:has(a:focus-visible) {
+  transform: scale(1.012);
+  animation-duration: 2.5s;
+  box-shadow:
+    0 0 70px rgba(255, 159, 10, 0.4),
+    0 0 140px rgba(255, 45, 120, 0.28),
+    0 0 200px rgba(255, 226, 61, 0.14);
+}
+
+.play-card-frame:has(a:active) {
+  transform: scale(0.992);
+  transition-duration: 80ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .play-card-frame { animation: none; }
+}
