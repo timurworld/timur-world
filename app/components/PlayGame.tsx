@@ -50,7 +50,7 @@ export default function PlayGame() {
           aria-label="Play Brainrot Clicker — opens in a new tab"
         >
           <img
-            src="/banner.jpg?v=20260428b"
+            src="/banner.jpg?v=20260428c"
             alt="Brainrot Clicker — tap, unlock, go brainrot. 100+ characters, limited skins, trade with friends."
             loading="eager"
             className="w-full h-auto block"
