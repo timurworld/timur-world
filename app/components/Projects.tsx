@@ -34,7 +34,7 @@ const characters = [
   { name: "Kingurini Orangini", file: "24_kinguru_orange.png",         rarity: "Prestige",     mult: "18x",  color: "#ff8c00", class: "Foodini",  isNew: true, unlock: "Ascend 3×" },
   { name: "Sushiro & Soyaro",   file: "23_sushiro_soyaro.png",         rarity: "Prestige",     mult: "12x",  color: "#ff6f61", class: "Foodini",  isNew: true, unlock: "Ascend 1×" },
   // Sportini event skins
-  { name: "Hockey Bros",        file: "22_hockey_bros.png",            rarity: "Limited",      mult: "22x",  color: "#ffe23d", class: "Sportini", isNew: true },
+  { name: "Hockey Bros",        file: "22_hockey_bros.png",            rarity: "Limited",      mult: "22x",  color: "#ffe23d", class: "Sportini", isNew: true, unlock: "2-skin fusion" },
   { name: "No My Pucks",        file: "21_no_my_pucks.png",            rarity: "Secret",       mult: "12x",  color: "#30d158", class: "Sportini", isNew: true },
   { name: "Stick Stick",        file: "20_stick_stick.png",            rarity: "Secret",       mult: "9.5x", color: "#00d4ff", class: "Sportini", isNew: true },
   // Legacy / points-unlock characters (oldest at the bottom)
