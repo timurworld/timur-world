@@ -22,6 +22,9 @@ const classMeta: Record<Exclude<CharacterClass, "All">, { emoji: string; desc: s
 // NEWEST FIRST — most recent character sits at index 0. When you ship a new
 // character, prepend it to the top of this array (don't append to the bottom).
 const characters = [
+  // Los Hockeys Limited — 3-skin Sportini fusion: Stick Stick + No My Pucks +
+  // Cupideini Hockini. Top of the Limited tier at 30×.
+  { name: "Los Hockeys",        file: "27_los_hockeys.png",            rarity: "Limited",      mult: "30x",  color: "#00bfff", class: "Sportini", isNew: true, unlock: "3-skin fusion" },
   // Maple Cup Mythic — first Mythic-tier skin. Fusion-only crossover of the
   // Cupidini and Sportini lines. Bears Timur's signature "T" + #7. Cap of 10.
   { name: "Cupideini Hockini",  file: "26_cupideini_hockini.png",      rarity: "Mythic",       mult: "25x",  color: "#ffd700", class: "Sportini", isNew: true, unlock: "Maple Cup fusion" },
