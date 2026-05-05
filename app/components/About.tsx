@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useReveal } from "../hooks/useReveal";
 
 export default function About() {
@@ -107,10 +108,12 @@ export default function About() {
                 boxShadow: "0 0 40px rgba(0,212,255,0.1), 0 0 80px rgba(191,90,242,0.08)",
               }}
             >
-              <img
+              <Image
                 src="/timur_about.png"
                 alt="Timur"
-                className="w-full h-full object-cover object-center"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
+                className="object-cover object-center"
               />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #0f0825 0%, transparent 50%)" }} />
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useReveal } from "../hooks/useReveal";
 
 const GAME_URL = "https://game.timur.world";
@@ -50,10 +51,12 @@ export default function PlayGame() {
             }}
             aria-label="Play Brainrot Clicker — opens in a new tab"
           >
-            <img
+            <Image
               src="/banner.jpg?v=20260428c"
               alt="Brainrot Clicker — tap, unlock, go brainrot. 100+ characters, limited skins, trade with friends."
-              loading="eager"
+              width={1280}
+              height={853}
+              sizes="(max-width: 768px) 100vw, 600px"
               className="w-full h-auto block"
             />
           </a>

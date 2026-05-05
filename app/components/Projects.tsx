@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { useReveal } from "../hooks/useReveal";
 
@@ -333,19 +334,27 @@ export default function Projects() {
                 style={{ background: project.category === "Characters" ? `radial-gradient(circle, ${project.glow}15, var(--color-surface))` : undefined }}
               >
                 {project.category === "Characters" && project.image ? (
-                  <img
+                  <Image
                     src={project.image}
                     alt={project.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     loading="lazy"
-                    className="h-[82%] w-auto max-w-[95%] object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
-                    style={{ filter: `drop-shadow(0 0 15px ${project.glow}66)` }}
+                    className="object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
+                    style={{
+                      filter: `drop-shadow(0 0 15px ${project.glow}66)`,
+                      objectPosition: "center",
+                      padding: "9% 5%",
+                    }}
                   />
                 ) : project.category === "Backgrounds" && project.image ? (
-                  <img
+                  <Image
                     src={project.image}
                     alt={project.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
+                    className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
                   />
                 ) : project.category === "Backgrounds" ? (
                   <div className="flex flex-col items-center gap-3">
