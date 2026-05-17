@@ -9,22 +9,32 @@ const categories = ["Characters", "Backgrounds"] as const;
 // Character classes — thematic families grouping characters by vibe.
 // "Foodini" covers the new edible-themed cast (sushi, fruit, berries...) —
 // distinct from Partini which is birthday/party food.
-const CHARACTER_CLASSES = ["All", "Lovini", "Partini", "Robotini", "Sportini", "Foodini"] as const;
+const CHARACTER_CLASSES = ["All", "Lovini", "Partini", "Robotini", "Sportini", "Foodini", "Fidgetini"] as const;
 type CharacterClass = typeof CHARACTER_CLASSES[number];
 
 const classMeta: Record<Exclude<CharacterClass, "All">, { emoji: string; desc: string; color: string }> = {
-  Lovini:   { emoji: "💖", desc: "Emotion characters",  color: "#ff1493" },
-  Partini:  { emoji: "🎉", desc: "Chaos characters",     color: "#ffd700" },
-  Robotini: { emoji: "🤖", desc: "Tech characters",      color: "#00d4ff" },
-  Sportini: { emoji: "🏆", desc: "Sports characters",    color: "#30d158" },
-  Foodini:  { emoji: "🍣", desc: "Food characters",      color: "#ff6f61" },
+  Lovini:    { emoji: "💖", desc: "Emotion characters",  color: "#ff1493" },
+  Partini:   { emoji: "🎉", desc: "Chaos characters",     color: "#ffd700" },
+  Robotini:  { emoji: "🤖", desc: "Tech characters",      color: "#00d4ff" },
+  Sportini:  { emoji: "🏆", desc: "Sports characters",    color: "#30d158" },
+  Foodini:   { emoji: "🍣", desc: "Food characters",      color: "#ff6f61" },
+  Fidgetini: { emoji: "🧩", desc: "Fidget toy characters", color: "#4db8db" },
 };
 
 // NEWEST FIRST — most recent character sits at index 0. When you ship a new
 // character, prepend it to the top of this array (don't append to the bottom).
 const characters = [
+  // La Fidget Combination Limited — 3-skin Fidgetini fusion: Popini Itini +
+  // Fidgetini Cubini + Dragini Sqishini. New top of the Limited tier at 35×.
+  { name: "La Fidget Combination", file: "31_la_fidget_combination.png", rarity: "Limited",      mult: "35x",  color: "#ff4500", class: "Fidgetini", isNew: true, unlock: "3-skin fusion" },
+  // Dragini Sqishini Mythic — second Mythic in the game and first Mythic via
+  // drop (not fusion). Sits below the apex Mythic Cupideini Hockini (25×).
+  { name: "Dragini Sqishini",   file: "30_dragini_sqishini.png",       rarity: "Mythic",       mult: "18x",  color: "#c0392b", class: "Fidgetini", isNew: true, unlock: "Fidgetini drop" },
+  // Fidgetini drops — feed the La Fidget Combination fusion locker.
+  { name: "Fidgetini Cubini",   file: "29_fidgetini_cubini.png",       rarity: "Secret",       mult: "15x",  color: "#9b8ec4", class: "Fidgetini", isNew: true },
+  { name: "Popini Itini",       file: "28_popini_itini.png",           rarity: "Secret",       mult: "13x",  color: "#4db8db", class: "Fidgetini", isNew: true },
   // Los Hockeys Limited — 3-skin Sportini fusion: Stick Stick + No My Pucks +
-  // Cupideini Hockini. Top of the Limited tier at 30×.
+  // Cupideini Hockini. Top of the Limited tier at 30× until La Fidget Combo.
   { name: "Los Hockeys",        file: "27_los_hockeys.png",            rarity: "Limited",      mult: "30x",  color: "#00bfff", class: "Sportini", isNew: true, unlock: "3-skin fusion" },
   // Maple Cup Mythic — first Mythic-tier skin. Fusion-only crossover of the
   // Cupidini and Sportini lines. Bears Timur's signature "T" + #7. Cap of 10.
