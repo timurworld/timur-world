@@ -24,6 +24,9 @@ const classMeta: Record<Exclude<CharacterClass, "All">, { emoji: string; desc: s
 // NEWEST FIRST — most recent character sits at index 0. When you ship a new
 // character, prepend it to the top of this array (don't append to the bottom).
 const characters = [
+  // Spinirino — red fidget spinner. 4th Fidgetini drop, slots between
+  // Cubini (15×) and Dragini (18×).
+  { name: "Spinirino",          file: "32_Spinirino.png",              rarity: "Secret",       mult: "16x",  color: "#e74c3c", class: "Fidgetini", isNew: true },
   // La Fidget Combination Limited — 3-skin Fidgetini fusion: Popini Itini +
   // Fidgetini Cubini + Dragini Sqishini. New top of the Limited tier at 35×.
   { name: "La Fidget Combination", file: "31_la_fidget_combination.png", rarity: "Limited",      mult: "35x",  color: "#ff4500", class: "Fidgetini", isNew: true, unlock: "3-skin fusion" },
