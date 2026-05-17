@@ -24,6 +24,9 @@ const classMeta: Record<Exclude<CharacterClass, "All">, { emoji: string; desc: s
 // NEWEST FIRST — most recent character sits at index 0. When you ship a new
 // character, prepend it to the top of this array (don't append to the bottom).
 const characters = [
+  // Stressini Ballini — blue stress ball. 5th Fidgetini drop, slots
+  // between Popini (13×) and Cubini (15×).
+  { name: "Stressini Ballini",  file: "33_Stressini_ballini.png",      rarity: "Secret",       mult: "14x",  color: "#3498db", class: "Fidgetini", isNew: true },
   // Spinirino — red fidget spinner. 4th Fidgetini drop, slots between
   // Cubini (15×) and Dragini (18×).
   { name: "Spinirino",          file: "32_Spinirino.png",              rarity: "Secret",       mult: "16x",  color: "#e74c3c", class: "Fidgetini", isNew: true },
