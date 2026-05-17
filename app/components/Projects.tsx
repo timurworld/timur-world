@@ -35,7 +35,8 @@ const characters = [
   { name: "La Fidget Combination", file: "31_la_fidget_combination.png", rarity: "Limited",      mult: "35x",  color: "#ff4500", class: "Fidgetini", isNew: true, unlock: "3-skin fusion" },
   // Dragini Sqishini Mythic — second Mythic in the game and first Mythic via
   // drop (not fusion). Sits below the apex Mythic Cupideini Hockini (25×).
-  { name: "Dragini Sqishini",   file: "30_dragini_sqishini.png",       rarity: "Mythic",       mult: "18x",  color: "#c0392b", class: "Fidgetini", isNew: true, unlock: "Fidgetini drop" },
+  // No unlock badge — it's a regular drop, the meta line already says so.
+  { name: "Dragini Sqishini",   file: "30_dragini_sqishini.png",       rarity: "Mythic",       mult: "18x",  color: "#c0392b", class: "Fidgetini", isNew: true },
   // Fidgetini drops — feed the La Fidget Combination fusion locker.
   { name: "Fidgetini Cubini",   file: "29_fidgetini_cubini.png",       rarity: "Secret",       mult: "15x",  color: "#9b8ec4", class: "Fidgetini", isNew: true },
   { name: "Popini Itini",       file: "28_popini_itini.png",           rarity: "Secret",       mult: "13x",  color: "#4db8db", class: "Fidgetini", isNew: true },
