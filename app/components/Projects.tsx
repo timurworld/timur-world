@@ -122,6 +122,7 @@ const projects: Project[] = [
     unlock: (ch as { unlock?: string }).unlock,
   })),
   // Backgrounds — newest first.
+  { title: "Fidget World", category: "Backgrounds" as const, image: "/worlds/bg_26.jpg", emoji: "🧩", description: "Neon-lit fidget playground — home of Popini, Cubini, Dragini, Spinirino, Stressini & La Fidget Combo.", glow: "#bf5af2", featured: true },
   { title: "Los Hockeys Stadium", category: "Backgrounds" as const, image: "/worlds/bg_25.jpg", emoji: "⛸️", description: "The Los Hockeys home rink — electric blue ice and the floodlights of a fusion night.", glow: "#00bfff", featured: true },
   { title: "Timur World Arena", category: "Backgrounds" as const, image: "/worlds/bg_24.jpg", emoji: "🏒", description: "Timur World's flagship hockey arena — home of the Maple Cup and Cupideini Hockini.", glow: "#ffd700", featured: true },
   { title: "Candy Dreamland", category: "Backgrounds" as const, image: "/worlds/bg_01.jpg", emoji: "🍭", description: "Noobini Lovini's sweet world of lollipops and cotton candy.", glow: "#ff69b4", featured: false },
