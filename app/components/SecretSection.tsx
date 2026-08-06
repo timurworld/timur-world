@@ -50,8 +50,15 @@ const luckyPool = characters.filter((c) => c.status === "released" && c.spriteUr
 
 type Lucky = { date: string; slug: string; wish: number };
 
+// Local calendar date — the card resets at the kid's own midnight, not UTC.
 function todayStr() {
-  return new Date().toISOString().slice(0, 10);
+  return new Date().toLocaleDateString("en-CA");
+}
+
+function msUntilLocalMidnight() {
+  const now = new Date();
+  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+  return midnight.getTime() - now.getTime();
 }
 
 function loadLucky(): Lucky | null {
@@ -69,11 +76,30 @@ export default function SecretSection() {
   const [mounted, setMounted] = useState(false);
   const [cracking, setCracking] = useState(false);
   const [lucky, setLucky] = useState<Lucky | null>(null);
+  const [countdown, setCountdown] = useState("");
 
   useEffect(() => {
     setLucky(loadLucky());
     setMounted(true);
   }, []);
+
+  // Tick the countdown and auto-reset the card when local midnight passes.
+  useEffect(() => {
+    if (!lucky) return;
+    const tick = () => {
+      if (loadLucky() === null) {
+        setLucky(null); // new day — fresh card
+        return;
+      }
+      const ms = msUntilLocalMidnight();
+      const h = Math.floor(ms / 3_600_000);
+      const m = Math.ceil((ms % 3_600_000) / 60_000);
+      setCountdown(h > 0 ? `${h}h ${m}m` : `${m}m`);
+    };
+    tick();
+    const id = setInterval(tick, 30_000);
+    return () => clearInterval(id);
+  }, [lucky]);
 
   function crackOpen() {
     if (cracking || lucky) return;
@@ -172,7 +198,7 @@ export default function SecretSection() {
                   </p>
                 )}
                 <p className="text-white/50 text-sm mt-6">
-                  Come back tomorrow for a new lucky card!
+                  {countdown ? <>New lucky card in <span className="text-white font-bold">{countdown}</span> ✨</> : "Come back tomorrow for a new lucky card!"}
                 </p>
               </>
             ) : (
