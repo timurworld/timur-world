@@ -1,60 +1,58 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-const navItems = [
-  { label: "About Timur", href: "#about" },
-  { label: "My Games", href: "#play" },
-];
+import Link from "next/link";
+import { useState } from "react";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "py-3" : "py-5"
-      }`}
-      style={{
-        background: scrolled
-          ? "rgba(15, 8, 37, 0.85)"
-          : "transparent",
-        backdropFilter: scrolled ? "blur(16px)" : "none",
-        borderBottom: scrolled
-          ? "1px solid rgba(255,255,255,0.05)"
-          : "1px solid transparent",
-      }}
-    >
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
-        <a
-          href="#"
-          className="font-[family-name:var(--font-display)] text-xl font-bold tracking-[-0.02em] text-white/90 hover:text-white transition-colors duration-300"
+    <nav className="sticky top-0 z-50 bg-paper/90 backdrop-blur-md border-b border-ink/[0.06]">
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <Link
+          href="/"
+          className="font-[family-name:var(--font-display)] text-2xl font-extrabold tracking-tight text-ink"
         >
-          <span className="gradient-text">TIMUR</span>
-          <span className="text-white/40">.world</span>
-        </a>
+          TIMUR<span className="text-lovini">.</span>WORLD
+        </Link>
 
-        {/* Nav links */}
-        <div className="flex items-center gap-1">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="px-4 py-2 rounded-xl text-sm font-bold text-white/50
-                transition-all duration-300 hover:text-white hover:bg-white/[0.06]"
-            >
-              {item.label}
-            </a>
-          ))}
+        <div className="hidden sm:flex items-center gap-8">
+          <Link href="/#characters" className="text-sm font-semibold text-pencil hover:text-ink transition-colors duration-200">
+            Characters
+          </Link>
+          <Link href="/worlds" className="text-sm font-semibold text-pencil hover:text-ink transition-colors duration-200">
+            Worlds
+          </Link>
+          {/* Sketchbook hidden until sketch quality is fixed */}
+          <Link href="/about" className="text-sm font-semibold text-pencil hover:text-ink transition-colors duration-200">
+            About Timur
+          </Link>
         </div>
+
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="sm:hidden flex flex-col gap-1.5 p-2"
+          aria-label="Toggle menu"
+        >
+          <span className={`block w-5 h-0.5 bg-ink transition-transform duration-200 ${mobileOpen ? "translate-y-2 rotate-45" : ""}`} />
+          <span className={`block w-5 h-0.5 bg-ink transition-opacity duration-200 ${mobileOpen ? "opacity-0" : ""}`} />
+          <span className={`block w-5 h-0.5 bg-ink transition-transform duration-200 ${mobileOpen ? "-translate-y-2 -rotate-45" : ""}`} />
+        </button>
       </div>
+
+      {mobileOpen && (
+        <div className="sm:hidden border-t border-ink/[0.06] bg-paper px-6 py-4 flex flex-col gap-3">
+          <Link href="/#characters" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-pencil hover:text-ink">
+            Characters
+          </Link>
+          <Link href="/worlds" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-pencil hover:text-ink">
+            Worlds
+          </Link>
+          <Link href="/about" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-pencil hover:text-ink">
+            About Timur
+          </Link>
+        </div>
+      )}
     </nav>
   );
 }

@@ -1,154 +1,146 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useState } from "react";
+import { SERIES_META, TOTAL_ROSTER, characterOfTheDay } from "../data/characters";
 
-const emojis = ["🏒", "🎮", "🧠", "🎨", "⚡", "🔥", "💀", "🗿", "✨", "🐐"];
+const HERO_GROUP = "/hero-characters.png";
+
+const POKE_REACTIONS = [
+  "scale-x-110 scale-y-90",
+  "rotate-[20deg]",
+  "-translate-y-6",
+] as const;
 
 export default function Hero() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const [featured] = useState(characterOfTheDay);
+  const series = SERIES_META[featured.series];
+  const padNum = String(featured.number).padStart(3, "0");
+  const [pokeIdx, setPokeIdx] = useState(0);
+  const [poking, setPoking] = useState(false);
+
+  const nameParts = featured.name.split(" ");
+  const firstName = nameParts.slice(0, -1).join(" ") || nameParts[0];
+  const lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : "";
+
+  function handlePoke() {
+    setPoking(true);
+    setPokeIdx((i) => (i + 1) % POKE_REACTIONS.length);
+    setTimeout(() => setPoking(false), 400);
+  }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* ── Neon background blobs ── */}
-      <div className="absolute inset-0">
-        <div
-          className="absolute top-[-15%] left-[-10%] w-[60%] h-[60%] rounded-full blur-[160px] animate-scale-pulse"
-          style={{ background: "radial-gradient(circle, rgba(0,212,255,0.25) 0%, transparent 70%)" }}
-        />
-        <div
-          className="absolute bottom-[-10%] right-[-10%] w-[55%] h-[55%] rounded-full blur-[140px] animate-scale-pulse"
-          style={{ background: "radial-gradient(circle, rgba(191,90,242,0.25) 0%, transparent 70%)", animationDelay: "-1.5s" }}
-        />
-        <div
-          className="absolute top-[20%] right-[10%] w-[35%] h-[35%] rounded-full blur-[120px] animate-scale-pulse"
-          style={{ background: "radial-gradient(circle, rgba(255,45,120,0.15) 0%, transparent 70%)", animationDelay: "-3s" }}
-        />
-        <div
-          className="absolute bottom-[30%] left-[10%] w-[25%] h-[25%] rounded-full blur-[100px]"
-          style={{ background: "radial-gradient(circle, rgba(255,226,61,0.12) 0%, transparent 70%)" }}
-        />
-      </div>
-
-      {/* ── Spinning geometric ring ── */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full border border-neon-purple/10 animate-spin-slow" />
-        <div className="absolute w-[400px] h-[400px] md:w-[550px] md:h-[550px] rounded-full border border-neon-blue/10 animate-spin-slower" />
-      </div>
-
-      {/* ── Grain ── */}
-      <div className="absolute inset-0 grain" />
-
-      {/* ── Floating emojis ── */}
-      <div className="absolute inset-0 pointer-events-none">
-        {emojis.map((emoji, i) => {
-          const positions = [
-            { top: "8%", left: "5%" },
-            { top: "15%", right: "8%" },
-            { top: "35%", left: "3%" },
-            { top: "25%", right: "4%" },
-            { bottom: "30%", left: "7%" },
-            { bottom: "20%", right: "6%" },
-            { top: "50%", right: "12%" },
-            { bottom: "12%", left: "15%" },
-            { top: "65%", left: "10%" },
-            { bottom: "8%", right: "14%" },
-          ];
-          const wobbleClass = [
-            "animate-wobble",
-            "animate-wobble-2",
-            "animate-wobble-3",
-            "animate-wobble-4",
-            "animate-wobble-5",
-          ][i % 5];
-          return (
-            <div
-              key={i}
-              className={`absolute text-2xl md:text-3xl ${wobbleClass} select-none`}
-              style={positions[i]}
+    <section className="relative overflow-hidden border-b border-ink/[0.06]">
+      <div className="max-w-7xl mx-auto px-6 py-10 md:py-14">
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-4">
+          {/* Left: Copy */}
+          <div className="lg:w-[38%] shrink-0 text-center lg:text-left">
+            <a
+              href={`#char-${featured.slug}`}
+              className="inline-block px-3 py-1.5 mb-5 font-[family-name:var(--font-collector)] text-[11px] font-bold uppercase tracking-wider border border-ink rounded-sm hover:bg-ink hover:text-white transition-colors"
             >
-              {emoji}
+              Character of the Day
+            </a>
+
+            <div className="flex items-center gap-3 mb-3 justify-center lg:justify-start">
+              <span className="series-badge" style={{ background: series.color }}>{series.label}</span>
+              <span className="collector-num">No. {padNum} / {TOTAL_ROSTER}</span>
             </div>
-          );
-        })}
-      </div>
 
-      {/* ── Main content ── */}
-      <div
-        className={`relative z-10 text-center px-6 max-w-5xl mx-auto transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
-          mounted ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-12 scale-90"
-        }`}
-      >
-        {/* Creative Studio label */}
-        <p className="font-[family-name:var(--font-display)] text-sm sm:text-base md:text-lg font-bold tracking-[0.35em] uppercase text-neon-blue/70 mb-4">
-          Creative Studio
-        </p>
+            <a href={`#char-${featured.slug}`} className="group inline-block">
+              <h1 className="font-[family-name:var(--font-display)] text-5xl sm:text-6xl md:text-7xl font-extrabold text-ink tracking-tight leading-[1.0] group-hover:opacity-80 transition-opacity">
+                {firstName}
+                {lastName && <><br /><span style={{ color: series.color }}>{lastName}</span></>}
+              </h1>
+            </a>
 
-        {/* Hero glow behind title */}
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-[400px] h-[120px] md:w-[600px] md:h-[160px] rounded-full blur-[80px] hero-glow"
-              style={{ background: "linear-gradient(90deg, #00d4ff, #bf5af2, #ff2d78)" }}
-            />
+            {featured.facts[0] && (
+              <p className="mt-6 text-lg text-pencil max-w-md mx-auto lg:mx-0 leading-relaxed">{featured.facts[0]}</p>
+            )}
+
+            <div className="flex items-center gap-3 mt-8 justify-center lg:justify-start">
+              <a
+                href="#characters"
+                className="inline-flex items-center gap-2 px-6 py-3.5 bg-ink text-white font-[family-name:var(--font-collector)] font-bold text-xs uppercase tracking-wider hover:bg-ink/90 transition-colors"
+              >
+                Meet the whole crew
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+              <a
+                href="/worlds"
+                className="inline-flex items-center px-6 py-3.5 border border-ink/20 text-ink font-[family-name:var(--font-collector)] font-bold text-xs uppercase tracking-wider hover:border-ink/40 transition-colors"
+              >
+                Play their Worlds
+              </a>
+            </div>
+
+            <div className="flex items-center gap-4 mt-8 text-xs text-pencil justify-center lg:justify-start">
+              <span>Made by Timur, age 9</span>
+              <span className="flex items-center gap-1">
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                No ads
+              </span>
+              <span className="flex items-center gap-1">
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                Parent-run
+              </span>
+            </div>
           </div>
-          <h1 className="relative font-[family-name:var(--font-display)] text-7xl sm:text-8xl md:text-9xl lg:text-[11rem] font-bold leading-[0.85] tracking-[-0.04em] mb-2">
-            <span className="gradient-text">TIMUR</span>
-          </h1>
-          <p className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl md:text-4xl font-bold tracking-[0.2em] uppercase text-white/60 mb-8">
-            .world
-          </p>
-        </div>
 
-        <p className="text-lg sm:text-xl md:text-2xl text-white/50 max-w-2xl mx-auto leading-relaxed mb-10">
-          Where the intensity of the ice meets the freedom of creation.
-          <br className="hidden sm:block" />
-          Backgrounds. Characters. Games.
-        </p>
+          {/* Right: Character group image */}
+          <div className="lg:w-[62%] relative lg:-mr-6 lg:scale-[1.15] lg:origin-center">
+            {/* Organic blob backdrop — tucked behind the right half of the group */}
+            <div
+              className="absolute right-[-4%] top-[6%] w-[64%] h-[82%] bg-[#DDE8FB]"
+              style={{ borderRadius: "58% 42% 47% 53% / 52% 48% 55% 45%" }}
+            />
 
-        {/* Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a
-            href="#play"
-            className="group relative px-8 py-4 rounded-2xl font-bold text-lg overflow-hidden
-              transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]
-              hover:scale-110 active:scale-95 hover-wiggle
-              focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neon-blue"
-            style={{
-              background: "linear-gradient(135deg, #00d4ff, #bf5af2)",
-              boxShadow: "0 0 20px rgba(0,212,255,0.4), 0 0 40px rgba(191,90,242,0.2)",
-            }}
-          >
-            <span className="relative z-10 text-white flex items-center gap-2">
-              Play
-              <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            {/* Loose squiggle weaving through the group */}
+            <svg
+              className="absolute inset-0 w-full h-full text-ink/[0.55]"
+              viewBox="0 0 800 500"
+              fill="none"
+              preserveAspectRatio="xMidYMid meet"
+            >
+              <path
+                d="M210 90 C 420 30, 660 80, 640 210 C 625 315, 470 330, 430 260 C 395 195, 520 130, 640 170 M 300 430 C 420 480, 560 450, 610 380"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+
+            {/* Characters — the dominant element */}
+            <div
+              className="relative z-10 w-full aspect-[1574/759] cursor-pointer select-none"
+              onClick={handlePoke}
+            >
+              <Image
+                src={HERO_GROUP}
+                alt="Timur World characters"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 62vw"
+                className={`object-contain transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${poking ? POKE_REACTIONS[pokeIdx] : ""}`}
+              />
+            </div>
+
+            {/* Decorative accents */}
+            <svg className="absolute top-[18%] left-[16%] w-4 h-4 text-[#2F7CFF] z-20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.8 5.6 21.2 8 14 2 9.2h7.6z" />
+            </svg>
+            <svg className="absolute bottom-[12%] left-[12%] w-3 h-3 text-[#FF4D7D] z-20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.8 5.6 21.2 8 14 2 9.2h7.6z" />
+            </svg>
+            <div className="absolute top-[12%] right-[12%] z-20 rotate-6">
+              <svg className="w-16 h-16 text-[#2F7CFF]" viewBox="0 0 64 64" fill="currentColor">
+                <polygon points="64,32 57.1,38.7 59.7,48 50.4,50.4 48,59.7 38.7,57.1 32,64 25.3,57.1 16,59.7 13.6,50.4 4.3,48 6.9,38.7 0,32 6.9,25.3 4.3,16 13.6,13.6 16,4.3 25.3,6.9 32,0 38.7,6.9 48,4.3 50.4,13.6 59.7,16 57.1,25.3" />
               </svg>
-            </span>
-          </a>
-          <a
-            href="#projects"
-            className="px-8 py-4 rounded-2xl font-bold text-lg text-white/70
-              transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]
-              hover:scale-110 hover:text-white active:scale-95 hover-wiggle
-              focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neon-purple"
-            style={{
-              background: "rgba(255,255,255,0.06)",
-              border: "2px solid rgba(191,90,242,0.3)",
-              boxShadow: "0 0 15px rgba(191,90,242,0.1)",
-            }}
-          >
-            See Creations
-          </a>
-        </div>
-      </div>
-
-      {/* ── Scroll indicator ── */}
-      <div className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-10 transition-all duration-700 delay-500 ${
-        mounted ? "opacity-100" : "opacity-0"
-      }`}>
-        <div className="flex flex-col items-center gap-1 animate-bounce">
-          <span className="text-xs uppercase tracking-[0.3em] text-white/30 font-bold">Scroll</span>
-          <span className="text-xl">👇</span>
+              <span className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white -rotate-6">WOW!</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

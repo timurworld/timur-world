@@ -1,19 +1,28 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import About from "./components/About";
-import Projects from "./components/Projects";
-import PlayGame from "./components/PlayGame";
-import Contact from "./components/Contact";
+import Roster from "./components/Roster";
+import Worlds from "./components/Games";
+import SecretSection from "./components/SecretSection";
+import AboutStrip from "./components/AboutStrip";
+import TrustBanner from "./components/TrustBanner";
+import Footer from "./components/Footer";
+import AlbumReward from "./components/AlbumReward";
+import { AlbumProvider } from "./context/AlbumContext";
 
 export default function Home() {
   return (
-    <main>
-      <Navbar />
-      <Hero />
-      <About />
-      <PlayGame />
-      <Projects />
-      <Contact />
-    </main>
+    <AlbumProvider>
+      <main>
+        <Navbar />
+        <Hero />
+        <Roster />
+        <Worlds />
+        <SecretSection />
+        <AboutStrip />
+        <TrustBanner />
+        <Footer />
+        <AlbumReward />
+      </main>
+    </AlbumProvider>
   );
 }
