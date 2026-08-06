@@ -46,6 +46,54 @@ const WISHES: Record<string, string[]> = {
   ],
 };
 
+// One signature wish per character — tied to who they are.
+const WISHES_BY_SLUG: Record<string, string> = {
+  // Lovini
+  "noobini-lovini":       "Challenge someone to a staring contest today. Noobini says you can't lose.",
+  "romantini-grandini":   "Write someone a secret note today. Fold it like it's top secret. It is.",
+  "lovini-lovini-lovini": "Today is so good they'll name it three times. Lucky lucky lucky you.",
+  "teddini-robotini":     "Check on your best friend today. Even robots need hugs.",
+  "lovini-rosetti":       "Sniff a flower today. If none around, sniff a snack. Same joy.",
+  "heartini-smilekurro":  "Smile at somebody so big they HAVE to smile back. It's contagious.",
+  "cupidini-sahuroni":    "A compliment is flying at you from very far away. Don't dodge it.",
+  "rositti-tueletti":     "Look for something tiny and magical today. It's hiding in plain sight.",
+  "noo-mio-heartini":     "You're allowed exactly one dramatic window stare today. Make it count.",
+  "cupidini-hotspottini": "Sit like you own a volcano throne today. Confidence: maximum.",
+  "bobini-lovini":        "Treat yourself to a drink with a fancy straw. Slurp proudly.",
+  "cappy-family":         "Tell your mom (or your grown-up) they're #1 today. Watch them melt.",
+  "cupcakini-sweetini":   "Do something sweet for someone — no reason, no warning. Sprinkles optional.",
+  "lovini-vibini":        "Get the whole crew together today. Everything's better in a group hug.",
+  "toastini-butterini":   "Eat breakfast like a hero tomorrow. Butter side up. Always.",
+  // Partini
+  "noobini-partini":      "Throw a 10-second dance party right now. Guests optional.",
+  "cakini-presintini":    "Surprise someone today. Even a tiny surprise counts double.",
+  "dragini-partini":      "Make a wish like it's your birthday. Dragon rules: wishes count every day.",
+  "birthdayini-cardini":  "Say 'happy day!' to someone in a made-up language. It still works.",
+  "cakini-elephantini":   "An elephant never forgets — message someone you haven't in a while.",
+  "pizzini-partyini":     "Pizza-level luck today: every slice of your day has good toppings.",
+  // Hockini
+  "stick-stick":          "Grab a buddy and team up on something today. Two sticks beat one.",
+  "no-my-pucks":          "Guard your snacks today. Share only with the worthy.",
+  "hockey-bros":          "Bro move of the day: hype someone up so hard they score.",
+  "cupideini-hockini":    "Lucky number 7 day. Wear it, count it, or score it.",
+  "los-hockeys":          "Squad up. Today's wins are team wins.",
+  // Foodini
+  "sushiro-soyaro":       "Find your soy sauce — the friend who makes everything better. Stick together.",
+  "kingurini-orangini":   "Royal decree: eat something orange today and rule your afternoon.",
+  "auraberry":            "Your aura is extra sparkly today. People will notice. Act casual.",
+  // Fidgetini
+  "popini-itini":         "If you find bubble wrap today, pop it. That's not luck — that's destiny.",
+  "fidgetini-cubini":     "You get one perfect *click* today. You'll know it when you hear it.",
+  "dragini-sqishini":     "Squeeze the day. Seriously. It's squishier than it looks.",
+  "la-fidget-combination":"Triple luck today: something to click, something to spin, something to pop.",
+  "spinirino":            "Spin around once for luck. Twice for style. Three times if nobody's watching.",
+  "stressini-ballini":    "Whatever bounces off you today bounces right back better. That's physics.",
+  // Summerini
+  "chillen-lemonade":     "Too cool to panic today. Whatever happens: sunglasses on, chill mode.",
+  "cuppini-triondini":    "Trophy day! Whatever you win — game, race, argument — lift it high.",
+  "lemon-lemon-sahur":    "Fresh-sneaker energy today. Every step counts double.",
+};
+
 const luckyPool = characters.filter((c) => c.status === "released" && c.spriteUrl && !c.hidden);
 
 type Lucky = { openedAt: number; slug: string; wish: number };
@@ -114,8 +162,11 @@ export default function SecretSection() {
 
   const revealedChar = lucky ? luckyPool.find((c) => c.slug === lucky.slug) : null;
   const series = revealedChar ? SERIES_META[revealedChar.series] : null;
-  const wishPool = revealedChar ? WISHES[revealedChar.series] ?? WISHES.lovini : null;
-  const wishText = lucky && wishPool ? wishPool[lucky.wish % wishPool.length] : null;
+  // Signature wish per character; series pool as fallback for future drops.
+  const wishText = lucky && revealedChar
+    ? WISHES_BY_SLUG[revealedChar.slug] ??
+      (WISHES[revealedChar.series] ?? WISHES.lovini)[lucky.wish % (WISHES[revealedChar.series] ?? WISHES.lovini).length]
+    : null;
 
   return (
     <section className="relative bg-[#7B61FF] py-20 md:py-28 overflow-hidden">
