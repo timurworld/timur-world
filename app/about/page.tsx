@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import ContactForm from "../components/ContactForm";
 
 export default function AboutPage() {
   return (
@@ -106,18 +107,24 @@ export default function AboutPage() {
           </h2>
           <div className="space-y-4 text-pencil text-sm leading-relaxed max-w-2xl">
             <p>
-              Timur World is made by Timur (age 9) and run by his parent. Everything on
-              this site is original — every character was first drawn in Timur&apos;s
-              sketchbook, then developed into the collectible sprites you see here.
+              Timur World is made by Timur, age 9 — with a little help from his family.
+              Every character starts as one of Timur&apos;s own ideas, sketched first and
+              then turned into the collectible sprites you see here.
             </p>
             <p>
-              This site has no ads, no tracking beyond privacy-respecting basics, and no
-              purchases. There are no accounts, no data collection, and no third-party
-              scripts. Kids can explore, collect, and color safely.
+              No ads, no accounts, no purchases, no chat. Kids can explore, collect,
+              and color safely.
             </p>
-            <p>
-              Questions or feedback? Reach us at the email on our domain.
+          </div>
+
+          <div className="mt-10 pt-8 border-t border-ink/[0.06]">
+            <h3 className="font-[family-name:var(--font-display)] text-xl font-extrabold text-ink mb-2">
+              Say hi!
+            </h3>
+            <p className="text-pencil text-sm mb-6">
+              Questions, feedback, or a character idea? We read everything.
             </p>
+            <ContactForm />
           </div>
         </div>
       </section>
