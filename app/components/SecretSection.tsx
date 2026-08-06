@@ -48,25 +48,18 @@ const WISHES: Record<string, string[]> = {
 
 const luckyPool = characters.filter((c) => c.status === "released" && c.spriteUrl && !c.hidden);
 
-type Lucky = { date: string; slug: string; wish: number };
+type Lucky = { openedAt: number; slug: string; wish: number };
 
-// Local calendar date — the card resets at the kid's own midnight, not UTC.
-function todayStr() {
-  return new Date().toLocaleDateString("en-CA");
-}
-
-function msUntilLocalMidnight() {
-  const now = new Date();
-  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-  return midnight.getTime() - now.getTime();
-}
+// Rolling cooldown between cracks — tweak the hours here.
+const COOLDOWN_MS = 5 * 60 * 60 * 1000;
 
 function loadLucky(): Lucky | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as Lucky;
-    return parsed.date === todayStr() ? parsed : null;
+    if (!parsed.openedAt) return null; // old date-based entries expire immediately
+    return Date.now() - parsed.openedAt < COOLDOWN_MS ? parsed : null;
   } catch {
     return null;
   }
@@ -83,17 +76,18 @@ export default function SecretSection() {
     setMounted(true);
   }, []);
 
-  // Tick the countdown and auto-reset the card when local midnight passes.
+  // Tick the countdown and auto-reset the card when the cooldown ends.
   useEffect(() => {
     if (!lucky) return;
     const tick = () => {
-      if (loadLucky() === null) {
-        setLucky(null); // new day — fresh card
+      const ms = lucky.openedAt + COOLDOWN_MS - Date.now();
+      if (ms <= 0) {
+        setLucky(null); // cooldown over — fresh card
         return;
       }
-      const ms = msUntilLocalMidnight();
-      const h = Math.floor(ms / 3_600_000);
-      const m = Math.ceil((ms % 3_600_000) / 60_000);
+      const totalMin = Math.ceil(ms / 60_000);
+      const h = Math.floor(totalMin / 60);
+      const m = totalMin % 60;
       setCountdown(h > 0 ? `${h}h ${m}m` : `${m}m`);
     };
     tick();
@@ -108,7 +102,7 @@ export default function SecretSection() {
       const ch = luckyPool[Math.floor(Math.random() * luckyPool.length)];
       const pool = WISHES[ch.series] ?? WISHES.lovini;
       const pick: Lucky = {
-        date: todayStr(),
+        openedAt: Date.now(),
         slug: ch.slug,
         wish: Math.floor(Math.random() * pool.length),
       };
@@ -181,7 +175,7 @@ export default function SecretSection() {
           {/* Copy */}
           <div className="md:w-[60%] text-center md:text-left">
             <span className="font-[family-name:var(--font-collector)] text-[11px] font-bold uppercase tracking-[0.2em] text-white/60">
-              Daily Lucky Card
+              Lucky Card
             </span>
             <h2 className="font-[family-name:var(--font-display)] text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mt-3">
               {lucky ? "Your lucky wish:" : <>Who&rsquo;s hiding<br />inside?</>}
@@ -198,13 +192,13 @@ export default function SecretSection() {
                   </p>
                 )}
                 <p className="text-white/50 text-sm mt-6">
-                  {countdown ? <>New lucky card in <span className="text-white font-bold">{countdown}</span> ✨</> : "Come back tomorrow for a new lucky card!"}
+                  {countdown ? <>New lucky card in <span className="text-white font-bold">{countdown}</span> ✨</> : "Come back soon for a new lucky card!"}
                 </p>
               </>
             ) : (
               <>
                 <p className="text-white/60 text-lg mt-4 max-w-md mx-auto md:mx-0 leading-relaxed">
-                  One lucky card a day. Crack it open to meet a surprise character
+                  Crack it open to meet a surprise character
                   and get your wish of the day.
                 </p>
                 <button
