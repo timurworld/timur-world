@@ -117,9 +117,11 @@ export default function Roster() {
             const meta = key === "all" ? null : SERIES_META[key];
             const label = key === "all" ? "All" : meta!.label;
             const color = meta?.color || "#1C1B22";
+            // Mystery placeholders don't count as characters yet.
+            const real = visibleCharacters.filter((c) => c.status !== "secret");
             const count = key === "all"
-              ? visibleCharacters.length
-              : visibleCharacters.filter((c) => c.series === key).length;
+              ? real.length
+              : real.filter((c) => c.series === key).length;
             return (
               <button
                 key={key}
