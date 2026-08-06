@@ -15,7 +15,7 @@ const POKE_REACTIONS = [
 export default function Hero() {
   const [featured] = useState(characterOfTheDay);
   const series = SERIES_META[featured.series];
-  const padNum = String(featured.number).padStart(3, "0");
+  const padNum = String(featured.number).padStart(2, "0");
   const [pokeIdx, setPokeIdx] = useState(0);
   const [poking, setPoking] = useState(false);
 
@@ -34,7 +34,7 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-6 py-10 md:py-14">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-4">
           {/* Left: Copy */}
-          <div className="lg:w-[38%] shrink-0 text-center lg:text-left">
+          <div className="w-full lg:w-[38%] shrink-0 text-center lg:text-left">
             <a
               href={`#char-${featured.slug}`}
               className="inline-block px-3 py-1.5 mb-5 font-[family-name:var(--font-collector)] text-[11px] font-bold uppercase tracking-wider border border-ink rounded-sm hover:bg-ink hover:text-white transition-colors"
@@ -90,7 +90,7 @@ export default function Hero() {
           </div>
 
           {/* Right: Character group image */}
-          <div className="lg:w-[62%] relative lg:-mr-6 lg:scale-[1.15] lg:origin-center">
+          <div className="w-full lg:w-[62%] relative lg:-mr-6 lg:scale-[1.15] lg:origin-center">
             {/* Organic blob backdrop — tucked behind the right half of the group */}
             <div
               className="absolute right-[-4%] top-[6%] w-[64%] h-[82%] bg-[#DDE8FB]"

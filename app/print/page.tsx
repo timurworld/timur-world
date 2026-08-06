@@ -29,7 +29,7 @@ export default function PrintIndex() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
           {printable.map((ch) => {
             const series = SERIES_META[ch.series];
-            const padNum = String(ch.number).padStart(3, "0");
+            const padNum = String(ch.number).padStart(2, "0");
             return (
               <div
                 key={ch.slug}

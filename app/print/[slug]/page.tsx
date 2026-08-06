@@ -15,7 +15,7 @@ export default async function ColoringPage({ params }: { params: Promise<{ slug:
   if (!character || !character.spriteUrl) return notFound();
 
   const series = SERIES_META[character.series];
-  const padNum = String(character.number).padStart(3, "0");
+  const padNum = String(character.number).padStart(2, "0");
 
   return (
     <div className="min-h-screen bg-white flex flex-col">

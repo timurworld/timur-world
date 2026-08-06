@@ -52,7 +52,7 @@ function TodayStamp({ stacked }: { stacked: boolean }) {
 function CollectorNum({ number }: { number: number }) {
   return (
     <span className="collector-num">
-      No. {String(number).padStart(3, "0")}
+      No. {String(number).padStart(2, "0")}
     </span>
   );
 }
