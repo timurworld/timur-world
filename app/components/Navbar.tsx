@@ -11,6 +11,14 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link
           href="/"
+          onClick={() => {
+            // Always land at the very top, even when already on the home page
+            // or when the URL carries a #hash from a previous jump.
+            if (window.location.pathname === "/") {
+              history.replaceState(null, "", "/");
+              window.scrollTo({ top: 0 });
+            }
+          }}
           className="font-[family-name:var(--font-display)] text-2xl font-extrabold tracking-tight text-ink"
         >
           TIMUR<span className="text-lovini">.</span>WORLD
