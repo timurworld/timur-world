@@ -341,6 +341,15 @@ function ReleasedCard({
             <div className="px-4 py-3 border-t border-ink/[0.08]">
               <div className="flex items-center justify-between">
                 <CollectorNum number={character.number} />
+                {character.mult && (
+                  <span
+                    className="font-[family-name:var(--font-collector)] text-sm font-bold"
+                    style={{ color }}
+                    title="Brainrot Clicker multiplier"
+                  >
+                    {character.mult}
+                  </span>
+                )}
                 <span className="text-xs text-pencil font-semibold capitalize">
                   {RARITY_LABELS[character.rarity]}
                 </span>
