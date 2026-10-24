@@ -1,5 +1,7 @@
-export type Series = "lovini" | "partini" | "hockini" | "fidgetini" | "foodini" | "summerini";
-export type Rarity = "standard" | "rare" | "legendary" | "secret" | "limited" | "mythic" | "prestige" | "og";
+export type Series = "lovini" | "partini" | "hockini" | "fidgetini" | "foodini" | "summerini" | "halloweenini";
+export type Rarity =
+  | "standard" | "rare" | "og" | "epic" | "legendary"
+  | "secret" | "prestige" | "limited" | "mythic" | "divine";
 
 export interface Character {
   slug: string;
@@ -19,13 +21,51 @@ export interface Character {
 }
 
 export const SERIES_META: Record<Series, { label: string; color: string }> = {
-  lovini:    { label: "Lovini",    color: "#FF4D7D" },
-  partini:   { label: "Partini",   color: "#FF8A3D" },
-  hockini:   { label: "Hockini",   color: "#2F7CFF" },
-  fidgetini: { label: "Fidgetini", color: "#8B5CF6" },
-  foodini:   { label: "Foodini",   color: "#FFB01F" },
-  summerini: { label: "Summerini", color: "#FFD700" },
+  lovini:      { label: "Lovini",      color: "#FF4D7D" },
+  partini:     { label: "Partini",     color: "#FF8A3D" },
+  hockini:     { label: "Hockini",     color: "#2F7CFF" },
+  fidgetini:   { label: "Fidgetini",   color: "#8B5CF6" },
+  foodini:     { label: "Foodini",     color: "#FFB01F" },
+  summerini:   { label: "Summerini",   color: "#FFD700" },
+  halloweenini:{ label: "Halloween",   color: "#FF7A1A" },
 };
+
+// ── Rarity: the single source of truth ──
+// `tier` orders the ladder (Divine sits at the top, above Mythic).
+// `foil` marks the tiers that get the pointer-tracked foil tilt.
+// `foilStrength` scales that tilt — Divine tilts harder than everything else.
+export const RARITY_META: Record<
+  Rarity,
+  { label: string; tier: number; foil: boolean; foilStrength: number; seasonalOnly?: boolean }
+> = {
+  standard:  { label: "Standard",  tier: 1,  foil: false, foilStrength: 0 },
+  rare:      { label: "Rare",      tier: 2,  foil: false, foilStrength: 0 },
+  og:        { label: "OG",        tier: 3,  foil: false, foilStrength: 0 },
+  epic:      { label: "Epic",      tier: 4,  foil: true,  foilStrength: 1 },
+  legendary: { label: "Legendary", tier: 5,  foil: true,  foilStrength: 1 },
+  secret:    { label: "Secret",    tier: 6,  foil: true,  foilStrength: 1 },
+  prestige:  { label: "Prestige",  tier: 7,  foil: true,  foilStrength: 1 },
+  limited:   { label: "Limited",   tier: 8,  foil: true,  foilStrength: 1 },
+  mythic:    { label: "Mythic",    tier: 9,  foil: true,  foilStrength: 1 },
+  divine:    { label: "Divine",    tier: 10, foil: true,  foilStrength: 1.75, seasonalOnly: true },
+};
+
+// ── Limited seasonal collections ──
+// These mirror the core series in shape but are tracked as their own albums and
+// are deliberately excluded from the 100-character core roster completion.
+export const SEASONAL_SERIES: readonly Series[] = ["summerini", "halloweenini"];
+
+export function isSeasonal(series: Series): boolean {
+  return SEASONAL_SERIES.includes(series);
+}
+
+// Halloween 2026 runs until Nov 2, 2026 23:59 Pacific (PST, DST ended Nov 1).
+// Single config value — the clicker keeps its own copy of the same instant.
+export const HALLOWEEN_2026_END = "2026-11-02T23:59:59-08:00";
+
+export function isHalloweenSeasonOpen(now: Date = new Date()): boolean {
+  return now.getTime() <= new Date(HALLOWEEN_2026_END).getTime();
+}
 
 const TWENTY_ONE_DAYS = 21 * 24 * 60 * 60 * 1000;
 export function isNew(ch: Character): boolean {
@@ -42,6 +82,15 @@ export function characterOfTheDay(): Character {
 }
 
 export const TOTAL_ROSTER = 100;
+
+/**
+ * Released characters with no pencil sketch asset. These are absent from the
+ * /print coloring-page index (which needs a sketch) even though their
+ * individual print page works, since that renders the sprite.
+ */
+export function charactersMissingSketches(): Character[] {
+  return characters.filter((c) => c.status === "released" && !c.hidden && !c.sketchUrl);
+}
 
 export const characters: Character[] = [
   // ── Lovini ──
@@ -94,7 +143,14 @@ export const characters: Character[] = [
   { slug: "cuppini-triondini",    name: "Cuppini Triondini",     number: 38, series: "summerini", spriteUrl: "/characters/38_cuppini_triondini_v2.png", sketchUrl: "/sketches/38_cuppini_triondini_v2.png",  facts: ["World Cup trophy and ball — the summer champions"],                  mult: "9x", rarity: "legendary", status: "released", releasedAt: "2026-08-05" },
   { slug: "lemon-lemon-sahur",    name: "Lemon Lemon Sahur",     number: 39, series: "summerini", spriteUrl: "/characters/39_Lemon Lemon Sahur.png", sketchUrl: "/sketches/39_Lemon Lemon Sahur.png",  facts: ["A glowing lemon slice with the freshest sneakers"],                  mult: "7.5x", rarity: "rare",     status: "released", releasedAt: "2026-08-05" },
 
+  // ── Halloween 2026 (limited seasonal collection) ──
+  { slug: "candini-bucketini",     name: "Candini Bucketini",     number: 42, series: "halloweenini", spriteUrl: "/characters/43_Candini_Bucketini.png",      facts: ["Knocks on every door twice — just in case"],                        mult: "8x",  rarity: "standard",  status: "released", releasedAt: "2026-10-23" },
+  { slug: "ghostini-mechini",      name: "Ghostini Mechini",      number: 43, series: "halloweenini", spriteUrl: "/characters/44_ghostini_mechini.png",       facts: ["A robot under the bedsheet — boots up with a polite boo"],          mult: "16x", rarity: "epic",      status: "released", releasedAt: "2026-10-23" },
+  { slug: "frankenstini-squalini", name: "Frankenstini Squalini", number: 44, series: "halloweenini", spriteUrl: "/characters/46_Frankenstini_Sharkini.png",  facts: ["Stitched together in the deep end — the bolts are load-bearing"],   mult: "22x", rarity: "legendary", status: "released", releasedAt: "2026-10-23" },
+  { slug: "vampire-dragini",       name: "Vampire Dragini",       number: 45, series: "halloweenini", spriteUrl: "/characters/45_Vampire_Dragini.png",        facts: ["Sleeps upside down in a cave and calls it a castle"],               mult: "28x", rarity: "divine",    status: "released", releasedAt: "2026-10-23" },
+  { slug: "headlessini-pumpkini",  name: "Headlessini Pumpkini",  number: 46, series: "halloweenini", spriteUrl: "/characters/42_Headlessini_Pumpkini.png",   facts: ["Lost the head, kept the hat — rides faster than anyone can look"],   mult: "32x", rarity: "divine",    status: "released", releasedAt: "2026-10-23" },
+
   // ── Secret (unrevealed) ──
-  { slug: "secret-42",            name: "???",                   number: 42, series: "lovini",    facts: [],  rarity: "secret",   status: "secret" },
-  { slug: "secret-43",            name: "???",                   number: 43, series: "partini",   facts: [],  rarity: "secret",   status: "secret" },
+  { slug: "secret-47",            name: "???",                   number: 47, series: "lovini",    facts: [],  rarity: "secret",   status: "secret" },
+  { slug: "secret-48",            name: "???",                   number: 48, series: "partini",   facts: [],  rarity: "secret",   status: "secret" },
 ];
