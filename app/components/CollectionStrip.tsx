@@ -11,13 +11,13 @@ type CollectionCard = {
 };
 
 const collections: CollectionCard[] = [
+  { id: "halloweenini", label: "Halloweenini", banner: "/halloween_banner.png", color: SERIES_META.halloweenini.color },
   { id: "lovini",    label: "Lovini",    banner: "/Loveni_banner.png",     color: SERIES_META.lovini.color },
   { id: "partini",   label: "Partini",   banner: "/partini_banner.png",    color: SERIES_META.partini.color },
   { id: "hockini",   label: "Hockini",   banner: "/sportini_banner.png",   color: SERIES_META.hockini.color },
   { id: "fidgetini", label: "Fidgetini", banner: "/fidgitini_banner.png",  color: SERIES_META.fidgetini.color },
   { id: "foodini",   label: "Foodini",   banner: "/foodini_banner.png",    color: SERIES_META.foodini.color },
   { id: "summerini", label: "Summerini", banner: "/summer_banner2.png",    color: SERIES_META.summerini.color },
-  { id: "halloweenini", label: "Halloweenini", banner: "/halloween_banner.png", color: SERIES_META.halloweenini.color },
 ];
 
 export default function CollectionStrip({
