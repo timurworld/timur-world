@@ -7,7 +7,8 @@ import CharacterCard from "./CharacterCard";
 import AlbumProgress from "./AlbumProgress";
 import CollectionStrip from "./CollectionStrip";
 
-const seriesKeys: (Series | "all")[] = ["all", "lovini", "partini", "hockini", "fidgetini", "foodini", "summerini", "halloweenini"];
+// Halloween sits right after Recent while it is the live collection.
+const seriesKeys: (Series | "all")[] = ["all", "halloweenini", "lovini", "partini", "hockini", "fidgetini", "foodini", "summerini"];
 
 const RECENT_LIMIT = 20;
 
