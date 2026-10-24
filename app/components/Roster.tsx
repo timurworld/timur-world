@@ -1,21 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { characters, SERIES_META, characterOfTheDay, isSeasonal, charactersMissingSketches, type Series } from "../data/characters";
+import { characters, SERIES_META, characterOfTheDay, type Series } from "../data/characters";
 import { useAlbumContext } from "../context/AlbumContext";
 import CharacterCard from "./CharacterCard";
 import AlbumProgress from "./AlbumProgress";
 import CollectionStrip from "./CollectionStrip";
 
-const seriesKeys: (Series | "all")[] = ["all", "lovini", "partini", "hockini", "fidgetini", "foodini", "summerini", "halloweenini"];
+const seriesKeys: (Series | "all")[] = ["all", "lovini", "partini", "hockini", "fidgetini", "foodini", "summerini"];
 
 const visibleCharacters = characters.filter((c) => !c.hidden);
-// ALBUMHERO is the *core* album. Limited seasonal collections track their own
-// completion in AlbumProgress and deliberately don't gate the core reward.
-const coreReleasedSlugs = new Set(
-  visibleCharacters
-    .filter((c) => c.status === "released" && !isSeasonal(c.series))
-    .map((c) => c.slug)
+const releasedCount = visibleCharacters.filter((c) => c.status === "released").length;
+const releasedSlugs = new Set(
+  visibleCharacters.filter((c) => c.status === "released").map((c) => c.slug)
 );
 
 export default function Roster() {
@@ -27,19 +24,6 @@ export default function Roster() {
   // Only one card open at a time; clicking the same card closes it.
   const handleToggle = (slug: string) =>
     setFlippedSlug((cur) => (cur === slug ? null : slug));
-
-  // Dev-only: surface characters still waiting on a sketch asset, so they don't
-  // silently go missing from the /print coloring-page index.
-  useEffect(() => {
-    if (process.env.NODE_ENV === "production") return;
-    const missing = charactersMissingSketches();
-    if (missing.length) {
-      console.warn(
-        `[timur.world] ${missing.length} released character(s) have no sketch asset ` +
-          `and won't appear in /print: ${missing.map((c) => c.slug).join(", ")}`
-      );
-    }
-  }, []);
 
   // Deep-link: #char-<slug> reveals that character (used by "Character of the Day").
   useEffect(() => {
@@ -81,8 +65,8 @@ export default function Roster() {
 
   useEffect(() => {
     if (rewarded) return;
-    const allCollected = [...coreReleasedSlugs].every((slug) => collected.has(slug));
-    if (allCollected) {
+    const allCollected = [...releasedSlugs].every((slug) => collected.has(slug));
+    if (allCollected && collected.size >= releasedSlugs.size) {
       triggerReward();
     }
   }, [collected, triggerReward, rewarded]);
@@ -152,23 +136,6 @@ export default function Roster() {
             );
           })}
         </div>
-
-        {activeSeries === "halloweenini" && (
-          <div
-            className="mb-8 rounded-2xl px-5 py-4 flex flex-wrap items-center gap-x-4 gap-y-2"
-            style={{ background: "linear-gradient(100deg, #FF7A1A, #5B2A86)" }}
-          >
-            <span className="font-[family-name:var(--font-collector)] text-[11px] font-bold uppercase tracking-[0.18em] text-white/80">
-              Limited Collection
-            </span>
-            <span className="font-[family-name:var(--font-display)] text-lg font-extrabold text-white">
-              Halloween 2026
-            </span>
-            <span className="text-sm text-white/85">
-              Five characters, two of them Divine — the rarest tier in Timur.World.
-            </span>
-          </div>
-        )}
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
           {sorted.map((ch) => (

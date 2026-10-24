@@ -2,19 +2,16 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Character, SERIES_META, RARITY_META, isNew, type Series } from "../data/characters";
-import { useFoilTilt, type GlarePalette } from "../hooks/useFoilTilt";
+import { Character, SERIES_META, isNew, TOTAL_ROSTER, type Series } from "../data/characters";
+import { useFoilTilt } from "../hooks/useFoilTilt";
 import { useAlbumContext } from "../context/AlbumContext";
 
-// Seasonal collections get a holo border frame. Same mechanics for each —
-// only the gradient differs. Halloween is the Summer frame recoloured
-// pumpkin-orange into deep purple.
-const SEASONAL_FRAME: Partial<Record<Series, string>> = {
-  summerini:    "linear-gradient(135deg, #7DF0FF, #B98CFF, #FFD37D)",
-  halloweenini: "linear-gradient(135deg, #FF7A1A, #5B2A86, #FF7A1A)",
+const RARITY_LABELS: Record<string, string> = {
+  standard: "Standard", rare: "Rare", legendary: "Legendary", secret: "Secret",
+  limited: "Limited", mythic: "Mythic", prestige: "Prestige", og: "OG",
 };
 
-const DIVINE_GLARE: GlarePalette = ["255,122,26", "91,42,134", "255,122,26"];
+const HIGH_RARITY = new Set(["legendary", "mythic", "secret", "limited", "prestige"]);
 
 function seriesColor(s: Series) { return SERIES_META[s].color; }
 
@@ -70,9 +67,7 @@ function ActionButtons({ character }: { character: Character }) {
 
   return (
     <div className="flex gap-1.5 mt-2" onClick={stopFlip} onMouseDown={stopFlip}>
-      {/* The coloring page renders the sprite, not the sketch, so this is gated
-          on spriteUrl — a character without one has no page to open. */}
-      {character.spriteUrl && (
+      {character.sketchUrl && (
         <button
           onClick={(e) => { stopFlip(e); window.open(`/print/${character.slug}`, "_blank"); }}
           className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-ink bg-ink/[0.06] hover:bg-ink/[0.12] transition-colors"
@@ -125,17 +120,12 @@ function InfoBar({ character, color }: { character: Character; color: string }) 
       <h3 className="font-[family-name:var(--font-display)] text-base font-bold text-ink leading-tight truncate">
         {character.name}
       </h3>
-      {/* Wraps so a wide series badge (Halloween) can't clip the rarity. */}
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1.5">
-        <span className="series-badge shrink-0" style={{ background: color }}>
+      <div className="flex items-center gap-2 mt-1.5">
+        <span className="series-badge" style={{ background: color }}>
           {SERIES_META[character.series].label}
         </span>
-        <span
-          className={`text-xs font-semibold capitalize ${
-            character.rarity === "divine" ? "divine-rarity-label" : "text-pencil"
-          }`}
-        >
-          {RARITY_META[character.rarity].label}
+        <span className="text-xs text-pencil font-semibold capitalize">
+          {RARITY_LABELS[character.rarity]}
         </span>
       </div>
     </div>
@@ -252,13 +242,9 @@ function ReleasedCard({
 }) {
   const [slapAnim, setSlapAnim] = useState(false);
   const color = seriesColor(character.series);
-  const rarity = RARITY_META[character.rarity];
-  const isDivine = character.rarity === "divine";
-  const seasonalFrame = SEASONAL_FRAME[character.series];
-  const foil = useFoilTilt(rarity.foil && !flipped, {
-    strength: rarity.foilStrength,
-    glare: isDivine ? DIVINE_GLARE : undefined,
-  });
+  const isHighRarity = HIGH_RARITY.has(character.rarity);
+  const isSeasonal = character.series === "summerini";
+  const foil = useFoilTilt(isHighRarity && !flipped);
   const { collected, collect } = useAlbumContext();
   const isCollected = collected.has(character.slug);
 
@@ -292,12 +278,12 @@ function ReleasedCard({
             className="flip-card-front bg-white card-shadow flex flex-col"
             style={{
               borderLeft: `3px solid ${color}`,
-              outline: seasonalFrame ? "2px solid transparent" : undefined,
-              outlineOffset: seasonalFrame ? "-2px" : undefined,
-              backgroundImage: seasonalFrame ? `linear-gradient(white, white), ${seasonalFrame}` : undefined,
-              backgroundOrigin: seasonalFrame ? "border-box" : undefined,
-              backgroundClip: seasonalFrame ? "padding-box, border-box" : undefined,
-              border: seasonalFrame ? "2px solid transparent" : undefined,
+              outline: isSeasonal ? "2px solid transparent" : undefined,
+              outlineOffset: isSeasonal ? "-2px" : undefined,
+              backgroundImage: isSeasonal ? "linear-gradient(white, white), linear-gradient(135deg, #7DF0FF, #B98CFF, #FFD37D)" : undefined,
+              backgroundOrigin: isSeasonal ? "border-box" : undefined,
+              backgroundClip: isSeasonal ? "padding-box, border-box" : undefined,
+              border: isSeasonal ? "2px solid transparent" : undefined,
             }}
           >
             <div className="relative flex-1 flex items-center justify-center overflow-hidden">
@@ -313,21 +299,8 @@ function ReleasedCard({
               </div>
 
               {/* Foil glare overlay */}
-              {rarity.foil && (
+              {isHighRarity && (
                 <div className="absolute inset-0 pointer-events-none rounded-[20px]" style={foil.glareStyle} />
-              )}
-
-              {/* Divine: slow orange/purple shimmer + ember edge.
-                  Both are disabled under prefers-reduced-motion in globals.css. */}
-              {isDivine && (
-                <>
-                  <div className="absolute inset-0 pointer-events-none rounded-[20px] divine-shimmer" />
-                  <div className="absolute inset-0 pointer-events-none rounded-[20px] divine-embers" aria-hidden="true">
-                    {Array.from({ length: 8 }).map((_, i) => (
-                      <span key={i} className={`divine-ember divine-ember-${i + 1}`} />
-                    ))}
-                  </div>
-                </>
               )}
 
               <span className="absolute top-3 right-3">
@@ -377,10 +350,8 @@ function ReleasedCard({
                     {character.mult}
                   </span>
                 )}
-                <span
-                  className={`text-xs font-semibold capitalize ${isDivine ? "divine-rarity-label" : "text-pencil"}`}
-                >
-                  {RARITY_META[character.rarity].label}
+                <span className="text-xs text-pencil font-semibold capitalize">
+                  {RARITY_LABELS[character.rarity]}
                 </span>
               </div>
               <ActionButtons character={character} />
