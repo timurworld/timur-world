@@ -27,7 +27,7 @@ export const SERIES_META: Record<Series, { label: string; color: string }> = {
   fidgetini:   { label: "Fidgetini",   color: "#8B5CF6" },
   foodini:     { label: "Foodini",     color: "#FFB01F" },
   summerini:   { label: "Summerini",   color: "#FFD700" },
-  halloweenini:{ label: "Halloween",   color: "#FF7A1A" },
+  halloweenini:{ label: "Halloweenini", color: "#FF7A1A" },
 };
 
 // ── Rarity: the single source of truth ──

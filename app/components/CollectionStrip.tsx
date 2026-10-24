@@ -17,7 +17,7 @@ const collections: CollectionCard[] = [
   { id: "fidgetini", label: "Fidgetini", banner: "/fidgitini_banner.png",  color: SERIES_META.fidgetini.color },
   { id: "foodini",   label: "Foodini",   banner: "/foodini_banner.png",    color: SERIES_META.foodini.color },
   { id: "summerini", label: "Summerini", banner: "/summer_banner2.png",    color: SERIES_META.summerini.color },
-  { id: "halloweenini", label: "Halloween", banner: "/halloween_banner.png", color: SERIES_META.halloweenini.color },
+  { id: "halloweenini", label: "Halloweenini", banner: "/halloween_banner.png", color: SERIES_META.halloweenini.color },
 ];
 
 export default function CollectionStrip({
