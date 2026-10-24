@@ -19,7 +19,7 @@ const ACCENTS = {
   halloween: {
     // The Halloween group is shorter, so the blob tucks in tighter behind it
     // instead of spilling past the character on the right.
-    blob: "radial-gradient(circle at 34% 28%, #E4D3F6 0%, #C3A6E0 48%, #9F7BC9 100%)",
+    blob: "radial-gradient(ellipse at 42% 34%, #E3D2F5 0%, #C9AFE4 46%, rgba(190,163,221,0.45) 76%, rgba(190,163,221,0) 100%)",
     star1: "#FF7A1A", star2: "#5B2A86", badge: "#FF7A1A", badgeText: "BOO!",
     blobBox: "absolute right-[6%] top-[-6%] w-[50%] h-[96%]",
   },
