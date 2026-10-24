@@ -9,6 +9,8 @@ import CollectionStrip from "./CollectionStrip";
 
 const seriesKeys: (Series | "all")[] = ["all", "lovini", "partini", "hockini", "fidgetini", "foodini", "summerini", "halloweenini"];
 
+const RECENT_LIMIT = 20;
+
 const visibleCharacters = characters.filter((c) => !c.hidden);
 // ALBUMHERO is the *core* album. Limited seasonal collections track their own
 // completion in AlbumProgress and deliberately don't gate the core reward.
@@ -47,8 +49,11 @@ export default function Roster() {
       const m = window.location.hash.match(/^#char-(.+)$/);
       if (!m) return;
       const slug = decodeURIComponent(m[1]);
-      if (!visibleCharacters.some((c) => c.slug === slug)) return;
-      setActiveSeries("all"); // make sure it isn't filtered out
+      const target = visibleCharacters.find((c) => c.slug === slug);
+      if (!target) return;
+      // Switch to the character's own collection rather than "Recent", which
+      // only lists the newest few and would hide anything older.
+      setActiveSeries(target.series);
       setFlippedSlug(slug);
       requestAnimationFrame(() => {
         document
@@ -99,6 +104,11 @@ export default function Roster() {
     return b.number - a.number;
   });
 
+  // The default view is "Recent", not the whole roster — showing every
+  // character at once is a wall, and it only grows as the roster fills out.
+  // Picking a collection still shows that collection in full.
+  const shown = activeSeries === "all" ? sorted.slice(0, RECENT_LIMIT) : sorted;
+
   const secretsByNumber = sorted
     .filter((c) => c.status === "secret")
     .sort((a, b) => a.number - b.number)
@@ -131,12 +141,12 @@ export default function Roster() {
           {seriesKeys.map((key) => {
             const isActive = activeSeries === key;
             const meta = key === "all" ? null : SERIES_META[key];
-            const label = key === "all" ? "All" : meta!.label;
+            const label = key === "all" ? "Recent" : meta!.label;
             const color = meta?.color || "#1C1B22";
             // Mystery placeholders don't count as characters yet.
             const real = visibleCharacters.filter((c) => c.status !== "secret");
             const count = key === "all"
-              ? real.length
+              ? Math.min(RECENT_LIMIT, real.length)
               : real.filter((c) => c.series === key).length;
             return (
               <button
@@ -171,7 +181,7 @@ export default function Roster() {
         )}
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-          {sorted.map((ch) => (
+          {shown.map((ch) => (
             <div key={ch.slug} id={`char-${ch.slug}`} className="scroll-mt-28">
               <CharacterCard
                 character={ch}
