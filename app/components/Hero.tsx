@@ -7,7 +7,7 @@ import { SERIES_META, TOTAL_ROSTER, characterOfTheDay, isHalloweenSeasonOpen } f
 const HERO_GROUP = "/hero-characters.png";
 // Versioned filename: Next's image optimizer caches by path and ignores query
 // strings (a cache-bust param returns 400), so a changed image needs a new name.
-const HERO_GROUP_HALLOWEEN = "/hero-halloween-v2.png";
+const HERO_GROUP_HALLOWEEN = "/hero-halloween-v3.png";
 
 // Seasonal accent palette. The page stays on warm paper either way — only the
 // backdrop blob and the small decorations change colour.
@@ -114,7 +114,7 @@ export default function Hero() {
           </div>
 
           {/* Right: Character group image */}
-          <div className="w-full lg:w-[62%] relative lg:-mr-6 lg:scale-[1.15] lg:origin-center">
+          <div className={`w-full relative lg:origin-center ${halloween ? "lg:w-[64%] lg:scale-[1.22]" : "lg:w-[62%] lg:-mr-6 lg:scale-[1.15]"}`}>
             {/* Organic blob backdrop — tucked behind the right half of the group */}
             <div
               className={`${accent.blobBox} transition-colors duration-500`}
@@ -141,7 +141,7 @@ export default function Hero() {
                 so it carries its own aspect ratio rather than being letterboxed. */}
             <div
               className={`relative z-10 w-full cursor-pointer select-none ${
-                halloween ? "aspect-[1574/474]" : "aspect-[1574/759]"
+                halloween ? "aspect-[1574/520]" : "aspect-[1574/759]"
               }`}
               onClick={handlePoke}
             >
