@@ -150,7 +150,7 @@ export const characters: Character[] = [
   { slug: "vampire-dragini",       name: "Vampire Dragini",       number: 45, series: "halloweenini", spriteUrl: "/characters/45_Vampire_Dragini.png",        facts: ["Sleeps upside down in a cave and calls it a castle"],               mult: "28x", rarity: "divine",    status: "released", releasedAt: "2026-10-23" },
   { slug: "headlessini-pumpkini",  name: "Headlessini Pumpkini",  number: 46, series: "halloweenini", spriteUrl: "/characters/42_Headlessini_Pumpkini.png",   facts: ["Lost the head, kept the hat — rides faster than anyone can look"],   mult: "32x", rarity: "divine",    status: "released", releasedAt: "2026-10-23" },
 
-  // ── Secret (unrevealed) ──
-  { slug: "secret-47",            name: "???",                   number: 47, series: "lovini",    facts: [],  rarity: "secret",   status: "secret" },
-  { slug: "secret-48",            name: "???",                   number: 48, series: "partini",   facts: [],  rarity: "secret",   status: "secret" },
+  // No unrevealed "Drops Soon" placeholders at the moment. To tease the next
+  // character again, add an entry with status: "secret" and the next free
+  // number; the Roster marks the three lowest-numbered ones "Drops Soon".
 ];

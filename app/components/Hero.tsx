@@ -1,10 +1,28 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { SERIES_META, TOTAL_ROSTER, characterOfTheDay } from "../data/characters";
+import { useEffect, useState } from "react";
+import { SERIES_META, TOTAL_ROSTER, characterOfTheDay, isHalloweenSeasonOpen } from "../data/characters";
 
 const HERO_GROUP = "/hero-characters.png";
+// Versioned filename: Next's image optimizer caches by path and ignores query
+// strings (a cache-bust param returns 400), so a changed image needs a new name.
+const HERO_GROUP_HALLOWEEN = "/hero-halloween-v2.png";
+
+// Seasonal accent palette. The page stays on warm paper either way — only the
+// backdrop blob and the small decorations change colour.
+const ACCENTS = {
+  normal: {
+    blob: "#DDE8FB", star1: "#2F7CFF", star2: "#FF4D7D", badge: "#2F7CFF", badgeText: "WOW!",
+    blobBox: "absolute right-[-4%] top-[6%] w-[64%] h-[82%]",
+  },
+  halloween: {
+    // The Halloween group is shorter, so the blob tucks in tighter behind it
+    // instead of spilling past the character on the right.
+    blob: "#EFE2F7", star1: "#FF7A1A", star2: "#5B2A86", badge: "#FF7A1A", badgeText: "BOO!",
+    blobBox: "absolute right-[6%] top-[-6%] w-[50%] h-[96%]",
+  },
+} as const;
 
 const POKE_REACTIONS = [
   "scale-x-110 scale-y-90",
@@ -18,6 +36,12 @@ export default function Hero() {
   const padNum = String(featured.number).padStart(2, "0");
   const [pokeIdx, setPokeIdx] = useState(0);
   const [poking, setPoking] = useState(false);
+
+  // Evaluated at build time for the prerender, then re-checked on mount so the
+  // hero reverts on its own once the season closes, even without a redeploy.
+  const [halloween, setHalloween] = useState(isHalloweenSeasonOpen);
+  useEffect(() => { setHalloween(isHalloweenSeasonOpen()); }, []);
+  const accent = halloween ? ACCENTS.halloween : ACCENTS.normal;
 
   const nameParts = featured.name.split(" ");
   const firstName = nameParts.slice(0, -1).join(" ") || nameParts[0];
@@ -93,8 +117,8 @@ export default function Hero() {
           <div className="w-full lg:w-[62%] relative lg:-mr-6 lg:scale-[1.15] lg:origin-center">
             {/* Organic blob backdrop — tucked behind the right half of the group */}
             <div
-              className="absolute right-[-4%] top-[6%] w-[64%] h-[82%] bg-[#DDE8FB]"
-              style={{ borderRadius: "58% 42% 47% 53% / 52% 48% 55% 45%" }}
+              className={`${accent.blobBox} transition-colors duration-500`}
+              style={{ background: accent.blob, borderRadius: "58% 42% 47% 53% / 52% 48% 55% 45%" }}
             />
 
             {/* Loose squiggle weaving through the group */}
@@ -113,13 +137,17 @@ export default function Hero() {
             </svg>
 
             {/* Characters — the dominant element */}
+            {/* The Halloween group is wider and shorter than the regular cast,
+                so it carries its own aspect ratio rather than being letterboxed. */}
             <div
-              className="relative z-10 w-full aspect-[1574/759] cursor-pointer select-none"
+              className={`relative z-10 w-full cursor-pointer select-none ${
+                halloween ? "aspect-[1574/474]" : "aspect-[1574/759]"
+              }`}
               onClick={handlePoke}
             >
               <Image
-                src={HERO_GROUP}
-                alt="Timur World characters"
+                src={halloween ? HERO_GROUP_HALLOWEEN : HERO_GROUP}
+                alt={halloween ? "The Halloween 2026 characters" : "Timur World characters"}
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 62vw"
@@ -128,17 +156,17 @@ export default function Hero() {
             </div>
 
             {/* Decorative accents */}
-            <svg className="absolute top-[18%] left-[16%] w-4 h-4 text-[#2F7CFF] z-20" viewBox="0 0 24 24" fill="currentColor">
+            <svg className="absolute top-[18%] left-[16%] w-4 h-4 z-20" style={{ color: accent.star1 }} viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.8 5.6 21.2 8 14 2 9.2h7.6z" />
             </svg>
-            <svg className="absolute bottom-[12%] left-[12%] w-3 h-3 text-[#FF4D7D] z-20" viewBox="0 0 24 24" fill="currentColor">
+            <svg className="absolute bottom-[12%] left-[12%] w-3 h-3 z-20" style={{ color: accent.star2 }} viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.8 5.6 21.2 8 14 2 9.2h7.6z" />
             </svg>
             <div className="absolute top-[12%] right-[12%] z-20 rotate-6">
-              <svg className="w-16 h-16 text-[#2F7CFF]" viewBox="0 0 64 64" fill="currentColor">
+              <svg className="w-16 h-16" style={{ color: accent.badge }} viewBox="0 0 64 64" fill="currentColor">
                 <polygon points="64,32 57.1,38.7 59.7,48 50.4,50.4 48,59.7 38.7,57.1 32,64 25.3,57.1 16,59.7 13.6,50.4 4.3,48 6.9,38.7 0,32 6.9,25.3 4.3,16 13.6,13.6 16,4.3 25.3,6.9 32,0 38.7,6.9 48,4.3 50.4,13.6 59.7,16 57.1,25.3" />
               </svg>
-              <span className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white -rotate-6">WOW!</span>
+              <span className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white -rotate-6">{accent.badgeText}</span>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Baloo_2, Nunito_Sans, Space_Mono } from "next/font/google";
 import "./globals.css";
+import SeasonTheme from "./components/SeasonTheme";
 
 const baloo2 = Baloo_2({
   variable: "--font-display",
@@ -52,6 +53,7 @@ export default function RootLayout({
       className={`${baloo2.variable} ${nunitoSans.variable} ${spaceMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-paper text-ink font-[family-name:var(--font-body)]">
+        <SeasonTheme />
         {children}
       </body>
     </html>
