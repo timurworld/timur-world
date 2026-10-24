@@ -80,6 +80,23 @@ html {
   background-size: 180px 180px, 180px 180px;
 }
 
+/* The nav is bg-paper/90, which Tailwind bakes in as the old cool white, so it
+   read as a mismatched band once the page warmed up. Warm it to match and give
+   it a faint pumpkin edge instead of the plain hairline. */
+:root[data-season="halloween"] nav.sticky {
+  background-color: rgba(253, 243, 233, 0.92);
+  border-bottom-color: transparent;
+  background-image: linear-gradient(to right, rgba(255, 122, 26, 0.55), rgba(91, 42, 134, 0.55));
+  background-repeat: no-repeat;
+  background-size: 100% 2px;
+  background-position: bottom left;
+}
+
+/* Mobile dropdown panel inside the nav. */
+:root[data-season="halloween"] nav .bg-paper {
+  background-color: #FDF3E9;
+}
+
 /* Section eyebrow labels pick up the season's orange. Doubled selector for
    specificity over Tailwind's own arbitrary-value utility. */
 :root[data-season="halloween"] .text-\[\#FF4D7D\].text-\[\#FF4D7D\] {
