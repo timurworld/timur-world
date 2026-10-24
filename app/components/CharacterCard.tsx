@@ -317,18 +317,12 @@ function ReleasedCard({
                 <div className="absolute inset-0 pointer-events-none rounded-[20px]" style={foil.glareStyle} />
               )}
 
-              {/* Divine: slow orange/purple shimmer + ember edge.
-                  Both are disabled under prefers-reduced-motion in globals.css. */}
-              {isDivine && (
-                <>
-                  <div className="absolute inset-0 pointer-events-none rounded-[20px] divine-shimmer" />
-                  <div className="absolute inset-0 pointer-events-none rounded-[20px] divine-embers" aria-hidden="true">
-                    {Array.from({ length: 8 }).map((_, i) => (
-                      <span key={i} className={`divine-ember divine-ember-${i + 1}`} />
-                    ))}
-                  </div>
-                </>
-              )}
+              {/* The Divine shimmer and ember overlays used to live here. They
+                  were removed while a Firefox flip bug is outstanding: they are
+                  the only Divine styling that renders inside the card's 3D flip
+                  subtree, so they are the prime suspects. Divine still reads as
+                  the top tier via its frame, the heavier foil tilt and the
+                  gradient rarity label, none of which touch the 3D context. */}
 
               <span className="absolute top-3 right-3">
                 <CollectorNum number={character.number} />
