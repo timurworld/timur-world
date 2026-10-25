@@ -144,7 +144,7 @@ export const characters: Character[] = [
   { slug: "lemon-lemon-sahur",    name: "Lemon Lemon Sahur",     number: 39, series: "summerini", spriteUrl: "/characters/39_Lemon Lemon Sahur.png", sketchUrl: "/sketches/39_Lemon Lemon Sahur.png",  facts: ["Sourest fruit in the bowl, best shoes by a mile"],                  mult: "7.2x", rarity: "rare",     status: "released", releasedAt: "2026-08-05" },
 
   // ── Hockini: the Cupiddini line ──
-  { slug: "cupiddini-cyberini",  name: "Cupiddini Cyberini",  number: 47, series: "hockini", spriteUrl: "/characters/47_Cupiddini_Cyberini.png",  facts: ["Skates so fast the rink lights up behind him"],       mult: "28x", rarity: "mythic", status: "released", releasedAt: "2026-10-24" },
+  { slug: "cupiddini-cyberini",  name: "Cupiddini Cyberini",  number: 47, series: "hockini", spriteUrl: "/characters/47_Cupiddini_Cyberini_v2.png",  facts: ["Skates so fast the rink lights up behind him"],       mult: "28x", rarity: "mythic", status: "released", releasedAt: "2026-10-24" },
   { slug: "cupiddini-divinini",  name: "Cupiddini Divinini",  number: 48, series: "hockini", spriteUrl: "/characters/48_Cupiddini_Divinini_v2.png",  facts: ["Flies straight at the net. The cape is not strictly necessary."], mult: "45x", rarity: "divine", status: "released", releasedAt: "2026-10-24" },
 
   // ── Halloween 2026 (limited seasonal collection) ──
