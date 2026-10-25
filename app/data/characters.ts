@@ -145,7 +145,7 @@ export const characters: Character[] = [
 
   // ── Hockini: the Cupiddini line ──
   { slug: "cupiddini-cyberini",  name: "Cupiddini Cyberini",  number: 47, series: "hockini", spriteUrl: "/characters/47_Cupiddini_Cyberini.png",  facts: ["Ice crystal wings and glowing skates — number 7 in neon"],       mult: "28x", rarity: "mythic", status: "released", releasedAt: "2026-10-24" },
-  { slug: "cupiddini-divinini",  name: "Cupiddini Divinini",  number: 48, series: "hockini", spriteUrl: "/characters/48_Cupiddini_Divinini.png",  facts: ["Golden armour, golden wings, and a crown that floats by itself"], mult: "45x", rarity: "divine", status: "released", releasedAt: "2026-10-24" },
+  { slug: "cupiddini-divinini",  name: "Cupiddini Divinini",  number: 48, series: "hockini", spriteUrl: "/characters/48_Cupiddini_Divinini_v2.png",  facts: ["Gold armour, feathered wings and a blue cape — number 7 taking off"], mult: "45x", rarity: "divine", status: "released", releasedAt: "2026-10-24" },
 
   // ── Halloween 2026 (limited seasonal collection) ──
   { slug: "candini-bucketini",     name: "Candini Bucketini",     number: 42, series: "halloweenini", spriteUrl: "/characters/43_Candini_Bucketini.png",      facts: ["A pumpkin bucket so full of sweets it rattles when he runs"],                        mult: "3.9x",  rarity: "standard",  status: "released", releasedAt: "2026-10-23" },
