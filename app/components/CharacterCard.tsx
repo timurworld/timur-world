@@ -308,7 +308,10 @@ function ReleasedCard({
                   fill
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   className="object-contain p-5"
-                  style={{ filter: `drop-shadow(0 4px 12px ${color}22)` }}
+                  style={{
+                    filter: `drop-shadow(0 4px 12px ${color}22)`,
+                    transform: character.renderScale ? `scale(${character.renderScale})` : undefined,
+                  }}
                 />
               </div>
 

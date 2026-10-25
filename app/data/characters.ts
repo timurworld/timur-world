@@ -18,6 +18,11 @@ export interface Character {
   releasedAt?: string;
   birthday?: string;
   hidden?: boolean;
+  /** Nudges the sprite's size inside the card. Some artwork spreads wide
+   *  wings or a cape, so the character reads smaller than its neighbours
+   *  even though both images fill the frame. Mirrors RENDER_SCALE_BY_ID
+   *  in the clicker. 1 = untouched. */
+  renderScale?: number;
 }
 
 export const SERIES_META: Record<Series, { label: string; color: string }> = {
@@ -145,7 +150,7 @@ export const characters: Character[] = [
 
   // ── Hockini: the Cupiddini line ──
   { slug: "cupiddini-cyberini",  name: "Cupiddini Cyberini",  number: 47, series: "hockini", spriteUrl: "/characters/47_Cupiddini_Cyberini_v2.png",  facts: ["Skates so fast the rink lights up behind him"],       mult: "28x", rarity: "mythic", status: "released", releasedAt: "2026-10-24" },
-  { slug: "cupiddini-divinini",  name: "Cupiddini Divinini",  number: 48, series: "hockini", spriteUrl: "/characters/48_Cupiddini_Divinini_v2.png",  facts: ["Flies straight at the net. The cape is not strictly necessary."], mult: "45x", rarity: "divine", status: "released", releasedAt: "2026-10-24" },
+  { slug: "cupiddini-divinini",  name: "Cupiddini Divinini",  number: 48, series: "hockini", spriteUrl: "/characters/48_Cupiddini_Divinini_v2.png",  facts: ["Flies straight at the net. The cape is not strictly necessary."], mult: "45x", rarity: "divine", renderScale: 1.14, status: "released", releasedAt: "2026-10-24" },
 
   // ── Halloween 2026 (limited seasonal collection) ──
   { slug: "candini-bucketini",     name: "Candini Bucketini",     number: 42, series: "halloweenini", spriteUrl: "/characters/43_Candini_Bucketini.png",      facts: ["Knocks twice at every door. Just in case."],                        mult: "3.9x",  rarity: "standard",  status: "released", releasedAt: "2026-10-23" },
