@@ -47,7 +47,7 @@ export const RARITY_META: Record<
   prestige:  { label: "Prestige",  tier: 7,  foil: true,  foilStrength: 1 },
   limited:   { label: "Limited",   tier: 8,  foil: true,  foilStrength: 1 },
   mythic:    { label: "Mythic",    tier: 9,  foil: true,  foilStrength: 1 },
-  divine:    { label: "Divine",    tier: 10, foil: true,  foilStrength: 1.75, seasonalOnly: true },
+  divine:    { label: "Divine",    tier: 10, foil: true,  foilStrength: 1.75 },
 };
 
 // ── Limited seasonal collections ──
@@ -142,6 +142,10 @@ export const characters: Character[] = [
   { slug: "chillen-lemonade",     name: "Chillen Lemonade",      number: 36, series: "summerini", spriteUrl: "/characters/36_Chillen Lemonade.png", sketchUrl: "/sketches/36_Chillen Lemonade.png",   facts: ["Coolest drink on the beach — always wears shades"],                  mult: "19x", rarity: "secret",   status: "released", releasedAt: "2026-08-05" },
   { slug: "cuppini-triondini",    name: "Cuppini Triondini",     number: 38, series: "summerini", spriteUrl: "/characters/38_cuppini_triondini_v2.png", sketchUrl: "/sketches/38_cuppini_triondini_v2.png",  facts: ["World Cup trophy and ball — the summer champions"],                  mult: "12x", rarity: "legendary", status: "released", releasedAt: "2026-08-05" },
   { slug: "lemon-lemon-sahur",    name: "Lemon Lemon Sahur",     number: 39, series: "summerini", spriteUrl: "/characters/39_Lemon Lemon Sahur.png", sketchUrl: "/sketches/39_Lemon Lemon Sahur.png",  facts: ["A glowing lemon slice with the freshest sneakers"],                  mult: "7.2x", rarity: "rare",     status: "released", releasedAt: "2026-08-05" },
+
+  // ── Hockini: the Cupiddini line ──
+  { slug: "cupiddini-cyberini",  name: "Cupiddini Cyberini",  number: 47, series: "hockini", spriteUrl: "/characters/47_Cupiddini_Cyberini.png",  facts: ["Wings made of ice crystals — the rink lights up when he skates"],       mult: "28x", rarity: "mythic", status: "released", releasedAt: "2026-10-24" },
+  { slug: "cupiddini-divinini",  name: "Cupiddini Divinini",  number: 48, series: "hockini", spriteUrl: "/characters/48_Cupiddini_Divinini.png",  facts: ["Golden armour, golden wings, floating crown — hockey's highest form"], mult: "45x", rarity: "divine", status: "released", releasedAt: "2026-10-24" },
 
   // ── Halloween 2026 (limited seasonal collection) ──
   { slug: "candini-bucketini",     name: "Candini Bucketini",     number: 42, series: "halloweenini", spriteUrl: "/characters/43_Candini_Bucketini.png",      facts: ["Knocks on every door twice — just in case"],                        mult: "3.9x",  rarity: "standard",  status: "released", releasedAt: "2026-10-23" },
