@@ -65,7 +65,7 @@ export default async function ColoringPage({ params }: { params: Promise<{ slug:
           {/* Footer */}
           <div className="absolute bottom-6 left-0 right-0 text-center print:bottom-[0.5in]">
             <p className="text-xs text-pencil/50">
-              timur.world · drawn by Timur, age 9
+              timur.world · drawn by Timur, age 10
             </p>
           </div>
         </div>

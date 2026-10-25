@@ -36,7 +36,7 @@ export default function AboutPage() {
 
             <div className="space-y-5 text-pencil text-lg leading-relaxed mt-8">
               <p>
-                Hi, I&apos;m Timur and I&apos;m 9 years old. I run a small design studio
+                Hi, I&apos;m Timur and I&apos;m 10 years old. I run a small design studio
                 dedicated to making fun, imaginative characters for kids. Every character
                 starts as a pencil sketch in my notebook, then gets turned into a collectible
                 vinyl-style sprite.
@@ -107,7 +107,7 @@ export default function AboutPage() {
           </h2>
           <div className="space-y-4 text-pencil text-sm leading-relaxed max-w-2xl">
             <p>
-              Timur World is made by Timur, age 9 — with a little help from his family.
+              Timur World is made by Timur, age 10 — with a little help from his family.
               Every character starts as one of Timur&apos;s own ideas, sketched first and
               then turned into the collectible sprites you see here.
             </p>

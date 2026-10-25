@@ -23,11 +23,11 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   title: "Timur World — Character Universe",
-  description: "A collectible character universe by Timur, age 9. Explore 100+ original characters, play games, and discover the worlds they live in.",
+  description: "A collectible character universe by Timur, age 10. Explore 100+ original characters, play games, and discover the worlds they live in.",
   metadataBase: new URL("https://timur.world"),
   openGraph: {
     title: "Timur World — Character Universe",
-    description: "A collectible character universe by Timur, age 9. Explore original characters and play games!",
+    description: "A collectible character universe by Timur, age 10. Explore original characters and play games!",
     url: "https://timur.world",
     siteName: "Timur World",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Timur World — Characters, Worlds, Games" }],
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Timur World — Character Universe",
-    description: "A collectible character universe by Timur, age 9.",
+    description: "A collectible character universe by Timur, age 10.",
     images: ["/og-image.png"],
   },
   icons: { icon: "/favicon.ico" },

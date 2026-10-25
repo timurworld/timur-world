@@ -102,7 +102,7 @@ export default function Hero() {
             </div>
 
             <div className="flex items-center gap-4 mt-8 text-xs text-pencil justify-center lg:justify-start">
-              <span>Made by Timur, age 9</span>
+              <span>Made by Timur, age 10</span>
               <span className="flex items-center gap-1">
                 <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                 No ads
